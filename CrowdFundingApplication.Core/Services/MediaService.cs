@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CrowdFundingApplication.Core.Data;
 using CrowdFundingApplication.Core.Model;
-using CrowdFundingApplication.Core.Model.Options.MediaOptions;
 using CrowdFundingApplication.Core.Services.Interfaces;
+using CrowdFundingApplication.Core.Model.Options.MediaOptions;
 
 namespace CrowdFundingApplication.Core.Services
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrowdFundingApplication.Core.Model.Options.MediaOptions
+﻿namespace CrowdFundingApplication.Core.Model.Options.MediaOptions
 {
     public class AddMediaOptions
     {

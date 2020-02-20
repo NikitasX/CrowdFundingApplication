@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrowdFundingApplication.Core.Services.Interfaces
+﻿namespace CrowdFundingApplication.Core.Services.Interfaces
 {
     public interface ILoggerService
     {
