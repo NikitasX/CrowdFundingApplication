@@ -4,41 +4,36 @@ using System.Text;
 
 namespace CrowdFundingApplication.Core.Model
 {
-   public class Post
-   {   
+    public class Media
+    {
         /// <summary>
         /// 
         /// </summary>
-        public int PostId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public User User { get; set; }
+        public int MediaId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public Project Project { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public MediaTypes MediaType { get; set; } 
 
         /// <summary>
         /// 
         /// </summary>
-        public string PostTitle { get; set; }
+        public string MediaURL { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string PostExcerpt { get; set; }
+        public DateTimeOffset MediaDateCreated { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public DateTimeOffset PostDateCreated { get; set; }
-
-        public Post()
+        public Media()
         {
-            PostDateCreated = DateTimeOffset.Now;
+            MediaDateCreated = DateTimeOffset.Now;
         }
     }
 }

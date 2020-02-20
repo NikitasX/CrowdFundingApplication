@@ -14,7 +14,7 @@ namespace CrowdFundingApplication.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public Project IncentiveProjectId { get; set; }
+        public Project Project { get; set; }
 
         /// <summary>
         /// 
@@ -39,6 +39,17 @@ namespace CrowdFundingApplication.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public DateTimeOffset IncentiveDateCreated { get; set; }
+        public DateTimeOffset IncentiveDateCreated { get; set; }        
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<BackedIncentives> IncentiveBackers { get; set; }
+
+        public Incentive()
+        {
+            IncentiveBackers = new List<BackedIncentives>();
+            IncentiveDateCreated = DateTimeOffset.Now;
+        }
     }
 }

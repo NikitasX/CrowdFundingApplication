@@ -56,7 +56,7 @@ namespace CrowdFundingApplication.Core.Services
 
             var project = new Project()
             {
-                ProjectUser = user,
+                User = user,
                 ProjectDescription = options.ProjectDescription,
                 ProjectTitle = options.ProjectTitle,
                 ProjectFinancialGoal = options.ProjectFinancialGoal,

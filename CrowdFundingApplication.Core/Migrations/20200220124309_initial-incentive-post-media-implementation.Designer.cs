@@ -4,14 +4,16 @@ using CrowdFundingApplication.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CrowdFundingApplication.Core.Migrations
 {
     [DbContext(typeof(CrowdFundingDbContext))]
-    partial class CrowdFundingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200220124309_initial-incentive-post-media-implementation")]
+    partial class initialincentivepostmediaimplementation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

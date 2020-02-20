@@ -14,17 +14,17 @@ namespace CrowdFundingApplication.Core.Model
         /// <summary>
         /// 
         /// </summary>       
-        public User ProjectUser { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ProjectDescription { get; set; }
+        public User User { get; set; }
 
         /// <summary>
         /// 
         /// </summary>      
         public string ProjectTitle { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ProjectDescription { get; set; }
 
         /// <summary>
         /// 
@@ -60,5 +60,19 @@ namespace CrowdFundingApplication.Core.Model
         /// 
         /// </summary>
         public ICollection<Incentive> ProjectIncentives { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<Media> ProjectMedia { get; set; }
+
+        public Project()
+        {
+            ProjectCapitalAcquired = 0;
+            ProjectPosts = new List<Post>();
+            ProjectIncentives = new List<Incentive>();
+            ProjectMedia = new List<Media>();
+            ProjectDateCreated = DateTimeOffset.Now;
+        }
     }
 }

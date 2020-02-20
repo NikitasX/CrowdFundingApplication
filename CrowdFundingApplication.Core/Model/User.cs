@@ -43,17 +43,11 @@ namespace CrowdFundingApplication.Core.Model
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<Project> UserBackedProjects { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public DateTimeOffset UserDateCreated { get; set; }
 
         public User()
         {
             UserCreatedProjects = new List<Project>();
-            UserBackedProjects = new List<Project>();
             UserDateCreated = DateTimeOffset.Now;
         }
     }
