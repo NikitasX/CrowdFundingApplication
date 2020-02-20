@@ -5,7 +5,7 @@ using CrowdFundingApplication.Core.Model.Options.User;
 
 namespace CrowdFundingApplication.Core.Services.Interfaces
 {
-    public interface IUserServices
+    public interface IUserService
     {
         Task<ApiResult<User>> AddUser(AddUserOptions options);
 

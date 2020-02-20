@@ -11,7 +11,7 @@ namespace CrowdFundingApplication.Tests
     public class UserServiceTests : IClassFixture<CrowdFundingApplicationFixture>
     {
 
-        private readonly IUserServices ursv_;
+        private readonly IUserService ursv_;
 
         private readonly CrowdFundingDbContext context_;
 
@@ -22,7 +22,7 @@ namespace CrowdFundingApplication.Tests
         public UserServiceTests(CrowdFundingApplicationFixture fixture)
         {
             context_ = fixture.DbContext;
-            ursv_ = fixture.Container.Resolve<IUserServices>();
+            ursv_ = fixture.Container.Resolve<IUserService>();
         }
 
         /// <summary>

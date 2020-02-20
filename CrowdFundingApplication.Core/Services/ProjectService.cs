@@ -14,11 +14,11 @@ namespace CrowdFundingApplication.Core.Services
     public class ProjectService : IProjectService
     {
         private readonly CrowdFundingDbContext context;
-        private readonly IUserServices users;
+        private readonly IUserService users;
         private readonly ILoggerService logger;
 
         public ProjectService(
-            IUserServices usr,
+            IUserService usr,
             ILoggerService lgr,
             CrowdFundingDbContext ctx)
         {
@@ -29,59 +29,47 @@ namespace CrowdFundingApplication.Core.Services
                 throw new ArgumentNullException(nameof(usr));
 
             logger = lgr ??
-                throw new ArgumentNullException(nameof(usr));
+                throw new ArgumentNullException(nameof(lgr));
         }
         
         public async Task<ApiResult<Project>> AddProject(int userId, AddProjectOptions options)
         {
 
             if (options == null) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = $"Project options: \'{nameof(options)}\' cannot be null"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    $"Project options: \'{nameof(options)}\' cannot be null");
             }
 
             if (userId <= 0) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "User id cannot be equal to or less than 0"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    "User id cannot be equal to or less than 0");
             }
 
             if (string.IsNullOrWhiteSpace(options.ProjectTitle)) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "Project title cannot be null or whitespace"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    "Project title cannot be null or whitespace");
             }
 
             if (options.ProjectFinancialGoal <= 0) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "Financial goal cannot be equal to or less than 0"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    "Financial goal cannot be equal to or less than 0");
             }
 
             if (options.ProjectCategory ==
               Model.ProjectCategory.Invalid) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "Project category not set (Invalid)"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    "Project category not set (Invalid)");
             }
 
             if (options.ProjectDateExpiring == default(DateTimeOffset)) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "Project expiration date cannot be null"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.BadRequest,
+                    "Project expiration date cannot be null");
             }
 
             var user = await users.SearchUser(new SearchUserOptions()
@@ -90,11 +78,9 @@ namespace CrowdFundingApplication.Core.Services
             }).SingleOrDefaultAsync();
 
             if (user == null) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.NotFound,
-                    ErrorText = "User id (from project) not found in database"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.NotFound,
+                    "User id (from project) not found in database");
             }
 
             var project = new Project()
@@ -127,11 +113,9 @@ namespace CrowdFundingApplication.Core.Services
             if (success) {
                 return ApiResult<Project>.CreateSuccess(project);
             } else {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = $"Something went wrong, project not added"
-                };
+                return new ApiResult<Project>(
+                    StatusCode.InternalServerError,
+                    $"Something went wrong, project not added");
             }
         }
 

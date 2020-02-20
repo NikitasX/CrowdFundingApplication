@@ -9,15 +9,12 @@ using CrowdFundingApplication.Core.Services.Interfaces;
 
 namespace CrowdFundingApplication.Core.Services
 {
-    public class UserService : IUserServices
+    public class UserService : IUserService
     {
         private readonly CrowdFundingDbContext context;
         private readonly ILoggerService logger;
+        
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ctx"></param>
         public UserService(
             CrowdFundingDbContext ctx,
             ILoggerService lgr)
@@ -26,7 +23,7 @@ namespace CrowdFundingApplication.Core.Services
                     ?? throw new ArgumentNullException(nameof(ctx));
 
             logger = lgr 
-                    ?? throw new ArgumentNullException(nameof(ctx));
+                    ?? throw new ArgumentNullException(nameof(lgr));
         }
 
         public async Task<ApiResult<User>> AddUser(AddUserOptions options)

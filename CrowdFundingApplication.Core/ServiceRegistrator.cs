@@ -25,7 +25,7 @@ namespace CrowdFundingApplication.Core
             builder
                 .RegisterType<UserService>()
                 .InstancePerLifetimeScope()
-                .As<IUserServices>();            
+                .As<IUserService>();            
             
             builder
                 .RegisterType<ProjectService>()
