@@ -23,11 +23,6 @@ namespace CrowdFundingApplication.Core.Model
 
         /// <summary>
         /// 
-        /// </summary>
-        public DateTimeOffset ProjectDateExpiring { get; set; }
-
-        /// <summary>
-        /// 
         /// </summary>      
         public string ProjectTitle { get; set; }
 
@@ -45,5 +40,25 @@ namespace CrowdFundingApplication.Core.Model
         /// 
         /// </summary>    
         public ProjectCategory ProjectCategory { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTimeOffset ProjectDateCreated { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTimeOffset ProjectDateExpiring { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<Post> ProjectPosts { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<Incentive> ProjectIncentives { get; set; }
     }
 }
