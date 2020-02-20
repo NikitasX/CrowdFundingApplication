@@ -1,6 +1,4 @@
-﻿using CrowdFundingApplication.Core.Data;
-
-namespace CrowdFundingApplication
+﻿namespace CrowdFundingApplication
 {
     class Program
     {

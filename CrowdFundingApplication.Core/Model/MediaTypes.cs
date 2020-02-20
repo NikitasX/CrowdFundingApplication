@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrowdFundingApplication.Core.Model
+﻿namespace CrowdFundingApplication.Core.Model
 {
     public enum MediaTypes
     {

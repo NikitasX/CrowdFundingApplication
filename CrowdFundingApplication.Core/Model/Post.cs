@@ -1,39 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CrowdFundingApplication.Core.Model
 {
-   public class Post
-   {   
-        /// <summary>
-        /// 
-        /// </summary>
+    public class Post
+    {   
         public int PostId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public User User { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Project Project { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string PostTitle { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string PostExcerpt { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public DateTimeOffset PostDateCreated { get; set; }
 
         public Post()

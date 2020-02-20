@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using CrowdFundingApplication.Core.Data;
 using CrowdFundingApplication.Core.Model;
 using CrowdFundingApplication.Core.Model.Options.User;
-using Microsoft.EntityFrameworkCore;
+using CrowdFundingApplication.Core.Services.Interfaces;
 
 namespace CrowdFundingApplication.Core.Services
 {
@@ -24,28 +25,22 @@ namespace CrowdFundingApplication.Core.Services
 
         public async Task<ApiResult<User>> AddUser(AddUserOptions options)
         {
-            if(options == null) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "User options cannot be null"
-                };
+            if (options == null) {
+                return new ApiResult<User>(
+                    StatusCode.BadRequest,
+                    $"User options: \'${nameof(options)}\' cannot be null");
             }
 
-            if(string.IsNullOrWhiteSpace(options.UserEmail)) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "User email cannot be null or whitespace"
-                };
+            if (string.IsNullOrWhiteSpace(options.UserEmail)) {
+                return new ApiResult<User>(
+                    StatusCode.BadRequest,
+                    "User email cannot be null or whitespace");
             }
 
             if (string.IsNullOrWhiteSpace(options.UserLastName)) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = "User last name cannot be null or whitespace"
-                };
+                return new ApiResult<User>(
+                    StatusCode.BadRequest,
+                    "User last name cannot be null or whitespace");
             }
 
             var exists = await SearchUser(
@@ -55,11 +50,9 @@ namespace CrowdFundingApplication.Core.Services
                 }).AnyAsync();
 
             if (exists) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.Conflict,
-                    ErrorText = "User email already in database"
-                };
+                return new ApiResult<User>(
+                    StatusCode.Conflict,
+                    "User email already in database");
             }
 
             var user = new User()
@@ -79,40 +72,32 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = $"Something went wrong, user not added {e}"
-                };
+                return new ApiResult<User>(
+                    StatusCode.InternalServerError,
+                    $"Changes not saved, user not added {e}");
             }
 
             if (success) {
                 return ApiResult<User>.CreateSuccess(user);
             } else {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = $"Something went wrong, user not added"
-                };
+                return new ApiResult<User>(
+                    StatusCode.InternalServerError,
+                    "Something went wrong, user not added");
             }
         }
 
         public async Task<ApiResult<User>> UpdateUser(int userId, UpdateUserOptions options)
         {
             if(userId <= 0) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = $"{userId} cannot be equal to or less than 0"
-                };
+                return new ApiResult<User>(
+                    StatusCode.BadRequest, 
+                    $"{userId} cannot be equal to or less than 0");
             }
 
             if(options == null) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.BadRequest,
-                    ErrorText = $"{options} cannot null"
-                };
+                return new ApiResult<User>(
+                    StatusCode.BadRequest,
+                    $"{options} cannot null");
             }
 
             var user = await SearchUser(new SearchUserOptions()
@@ -121,11 +106,8 @@ namespace CrowdFundingApplication.Core.Services
             }).SingleOrDefaultAsync();
 
             if(user == null) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.NotFound,
-                    ErrorText = $"User Id not found in database"
-                };
+                return new ApiResult<User>(StatusCode.NotFound,
+                    $"User Id not found in database");
             }
 
             if (!string.IsNullOrWhiteSpace(options.UserEmail)) {
@@ -137,11 +119,9 @@ namespace CrowdFundingApplication.Core.Services
                 if(emailCheck == null) {
                     user.UserEmail = options.UserEmail;
                 } else {
-                    return new ApiResult<User>()
-                    {
-                        ErrorCode = StatusCode.Conflict,
-                        ErrorText = $"Email already found in database"
-                    };
+                    return new ApiResult<User>(
+                        StatusCode.Conflict,
+                        "Email already found in database");
                 }
             }
 
@@ -168,22 +148,40 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = $"Something went wrong, user not updated. {e}"
-                };
+                return new ApiResult<User>(
+                    StatusCode.InternalServerError,
+                    $"Changes not saved, user not updated. {e}");
             }
 
             if (success) {
                 return ApiResult<User>.CreateSuccess(user);
             } else {
-                return new ApiResult<User>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = "Something went wrong, user not updated"
-                };
+                return new ApiResult<User>(
+                    StatusCode.InternalServerError,
+                    "Something went wrong, user not updated");
             }
+        }
+
+        public async Task<ApiResult<User>> GetUserById(int userId)
+        {
+            if(userId <= 0) {
+                return new ApiResult<User>(
+                    StatusCode.BadRequest,
+                    $"{userId} cannot be equal to or less than 0");
+            }
+
+            var user = await SearchUser(new SearchUserOptions()
+            {
+                UserId = userId
+            }).SingleOrDefaultAsync();
+
+            if (user == null) {
+                return new ApiResult<User>(
+                    StatusCode.NotFound, 
+                    $"User not found in database");
+            }
+
+            return ApiResult<User>.CreateSuccess(user);
         }
 
         public IQueryable<User> SearchUser(SearchUserOptions options)
