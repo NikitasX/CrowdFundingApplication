@@ -12,14 +12,20 @@ namespace CrowdFundingApplication.Core.Services
     public class UserService : IUserServices
     {
         private readonly CrowdFundingDbContext context;
+        private readonly ILoggerService logger;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ctx"></param>
-        public UserService(CrowdFundingDbContext ctx)
+        public UserService(
+            CrowdFundingDbContext ctx,
+            ILoggerService lgr)
         {
             context = ctx
+                    ?? throw new ArgumentNullException(nameof(ctx));
+
+            logger = lgr 
                     ?? throw new ArgumentNullException(nameof(ctx));
         }
 
@@ -72,9 +78,15 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
+
+                logger.LogError(
+                    StatusCode.InternalServerError.ToString(),
+                    $"Changes not saved, user not added.");
+                logger.LogInformation(e.ToString());
+
                 return new ApiResult<User>(
                     StatusCode.InternalServerError,
-                    $"Changes not saved, user not added {e}");
+                    $"Changes not saved, user not added");
             }
 
             if (success) {
@@ -148,6 +160,12 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
+
+                logger.LogError(
+                    StatusCode.InternalServerError.ToString(),
+                    $"Changes not saved, user not updated.");
+                logger.LogInformation(e.ToString());
+
                 return new ApiResult<User>(
                     StatusCode.InternalServerError,
                     $"Changes not saved, user not updated. {e}");

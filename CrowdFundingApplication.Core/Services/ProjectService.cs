@@ -15,15 +15,20 @@ namespace CrowdFundingApplication.Core.Services
     {
         private readonly CrowdFundingDbContext context;
         private readonly IUserServices users;
+        private readonly ILoggerService logger;
 
         public ProjectService(
             IUserServices usr,
+            ILoggerService lgr,
             CrowdFundingDbContext ctx)
         {
             context = ctx ??
                 throw new ArgumentNullException(nameof(ctx));            
             
             users = usr ??
+                throw new ArgumentNullException(nameof(usr));
+
+            logger = lgr ??
                 throw new ArgumentNullException(nameof(usr));
         }
         
@@ -109,11 +114,14 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
-                return new ApiResult<Project>()
-                {
-                    ErrorCode = StatusCode.InternalServerError,
-                    ErrorText = $"Changes not saved, project not added {e}"
-                };
+
+                logger.LogError(StatusCode.InternalServerError.ToString(),
+                        $"Changes not saved, project not added.");
+                logger.LogInformation(e.ToString());
+
+                return new ApiResult<Project>(
+                    StatusCode.InternalServerError,
+                    $"Changes not saved, project not added");
             }
 
             if (success) {
@@ -184,9 +192,14 @@ namespace CrowdFundingApplication.Core.Services
             try {
                 success = await context.SaveChangesAsync() > 0;
             } catch (Exception e) {
+
+                logger.LogError(StatusCode.InternalServerError.ToString(), 
+                    $"Changes not saved, project not updated.");
+                logger.LogInformation(e.ToString());
+
                 return new ApiResult<Project>(
                     StatusCode.InternalServerError,
-                    $"Changes not saved, project not updated. {e}");
+                    $"Changes not saved, project not updated.");
             }
 
             if (success) {
