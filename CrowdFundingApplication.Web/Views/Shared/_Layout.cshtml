@@ -31,8 +31,19 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AddUser">AddUser</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="UpdateUser">UpdateUser</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="SearchUser">SearchUser</a>
+                               
                             </div>
+                       
+                        <li class="nav-item dropdown text-dark">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Project
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="AddProject">AddProject</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Project" asp-action="ProjectList">ProjectList</a>                 
+                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Media" asp-action="MediaView">MediaView</a>
                         </li>
                     </ul>
                 </div>
