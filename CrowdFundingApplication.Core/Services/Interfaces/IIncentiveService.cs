@@ -16,5 +16,11 @@ namespace CrowdFundingApplication.Core.Services.Interfaces
         Task<ApiResult<IQueryable<Incentive>>> GetIncentiveByProjectId(int projectId);
 
         IQueryable<Incentive> SearchIncentive(SearchIncentiveOptions options);
+
+        Task<ApiResult<Incentive>> AddIncentiveBacker
+            (int projectId, int incentiveId, int backerId);        
+        
+        Task<ApiResult<Incentive>> RemoveIncentiveBacker
+            (int projectId, int incentiveId, int backerId);
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using CrowdFundingApplication.Core.Data;
 using CrowdFundingApplication.Core.Model;
 using CrowdFundingApplication.Core.Model.Options.IncentiveOptions;
 using CrowdFundingApplication.Core.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace CrowdFundingApplication.Core.Services
 {
@@ -14,11 +14,13 @@ namespace CrowdFundingApplication.Core.Services
 
         private readonly CrowdFundingDbContext context;
         private readonly IProjectService projects;
+        private readonly IUserService users;
         private readonly ILoggerService logger;
 
         public IncentiveService(
             CrowdFundingDbContext ctx,
             IProjectService pjct,
+            IUserService usr,
             ILoggerService lgr)
         {
             context = ctx
@@ -26,6 +28,9 @@ namespace CrowdFundingApplication.Core.Services
 
             projects = pjct
                     ?? throw new ArgumentNullException(nameof(pjct));
+
+            users = usr
+                    ?? throw new ArgumentNullException(nameof(usr));
 
             logger = lgr
                     ?? throw new ArgumentNullException(nameof(lgr));
@@ -286,5 +291,180 @@ namespace CrowdFundingApplication.Core.Services
             return query.Take(500);
         }
 
+        public async Task<ApiResult<Incentive>> AddIncentiveBacker
+            (int projectId, int incentiveId, int backerId)
+        {
+            if(projectId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Project id cannot be equal to or less than 0");
+            }            
+            
+            if(incentiveId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Incentive id cannot be equal to or less than 0");
+            }            
+            
+            if(backerId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Backer id cannot be equal to or less than 0");
+            }
+
+            var project = await projects.GetProjectById(projectId);
+
+            if (!project.Success) {
+                return project.ToResult<Incentive>();
+            }               
+            
+            var incentive = await context
+                .Set<Incentive>()
+                .Where(i => i.IncentiveId == incentiveId)
+                .SingleOrDefaultAsync();
+
+            if(incentive == null) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Incentive id not found in database");
+            }
+
+            if (incentive.Project != project.Data) {
+                return new ApiResult<Incentive>(
+                    StatusCode.Conflict,
+                    "Incentive does not belong to this project. Backer not added");
+            }
+            
+            var backer = await users.GetUserById(backerId);
+
+            if (!backer.Success) {
+                return backer.ToResult<Incentive>();
+            }
+
+            if(project.Data.User == backer.Data) {
+                return new ApiResult<Incentive>(
+                    StatusCode.Conflict,
+                    "Creator and backer cannot be the same person. Backer not added");
+            }
+
+            var backedIncentive = new BackedIncentives()
+            {
+                UserId = backer.Data.UserId,
+                IncentiveId = incentive.IncentiveId
+            };
+
+            context.Add(backedIncentive);
+
+            var success = false;
+
+            try {
+                success = await context.SaveChangesAsync() > 0;
+            } catch (Exception e) {
+
+                logger.LogError(StatusCode.InternalServerError.ToString(),
+                        $"Changes not saved, backer not added.");
+                logger.LogInformation(e.ToString());
+
+                return new ApiResult<Incentive>(
+                    StatusCode.InternalServerError,
+                    $"Changes not saved, backer not added");
+            }
+
+            if (success) {
+                return ApiResult<Incentive>.CreateSuccess(null);
+            } else {
+                return new ApiResult<Incentive>(
+                    StatusCode.InternalServerError,
+                    $"Something went wrong, backer not added");
+            }
+        }
+
+        public async Task<ApiResult<Incentive>> RemoveIncentiveBacker
+            (int projectId, int incentiveId, int backerId)
+        {
+            if (projectId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Project id cannot be equal to or less than 0");
+            }
+
+            if (incentiveId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Incentive id cannot be equal to or less than 0");
+            }
+
+            if (backerId <= 0) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Backer id cannot be equal to or less than 0");
+            }
+
+            var project = await projects.GetProjectById(projectId);
+
+            if (!project.Success) {
+                return project.ToResult<Incentive>();
+            }
+
+            var incentive = await context
+                .Set<Incentive>()
+                .Where(i => i.IncentiveId == incentiveId)
+                .SingleOrDefaultAsync();
+
+            if (incentive == null) {
+                return new ApiResult<Incentive>(
+                    StatusCode.BadRequest,
+                    "Incentive id not found in database");
+            }
+
+            if (incentive.Project != project.Data) {
+                return new ApiResult<Incentive>(
+                    StatusCode.Conflict,
+                    "Incentive does not belong to this project. Backer not added");
+            }
+
+            var backer = await users.GetUserById(backerId);
+
+            if (!backer.Success) {
+                return backer.ToResult<Incentive>();
+            }
+
+            var backedIncentive = await context
+                .Set<BackedIncentives>()
+                .Where(bi => bi.UserId == backer.Data.UserId 
+                    && bi.IncentiveId == incentive.IncentiveId)
+                .SingleOrDefaultAsync();
+
+            if(backedIncentive == null) {
+                return new ApiResult<Incentive>(
+                    StatusCode.NotFound,
+                    "Backer not found in BackedIncentives database");
+            }
+
+            context.Remove(backedIncentive);
+
+            var success = false;
+
+            try {
+                success = await context.SaveChangesAsync() > 0;
+            } catch (Exception e) {
+
+                logger.LogError(StatusCode.InternalServerError.ToString(),
+                        "Changes not saved, backer was not removed");
+                logger.LogInformation(e.ToString());
+
+                return new ApiResult<Incentive>(
+                    StatusCode.InternalServerError,
+                    "Changes not saved, backer was not removed");
+            }
+
+            if (success) {
+                return ApiResult<Incentive>.CreateSuccess(null);
+            } else {
+                return new ApiResult<Incentive>(
+                    StatusCode.InternalServerError,
+                    "Something went wrong, backer was not removed");
+            }
+        }
     }
 }
