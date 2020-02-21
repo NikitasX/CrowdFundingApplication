@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CrowdFundingApplication.Core.Model
 {
@@ -16,10 +17,13 @@ namespace CrowdFundingApplication.Core.Model
 
         public string UserVat { get; set; }
 
+        public ICollection<Project> UserCreatedProjects { get; set; }
+
         public DateTimeOffset UserDateCreated { get; set; }
 
         public User()
         {
+            UserCreatedProjects = new List<Project>();
             UserDateCreated = DateTimeOffset.Now;
         }
     }

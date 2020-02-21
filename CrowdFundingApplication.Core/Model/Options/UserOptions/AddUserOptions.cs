@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrowdFundingApplication.Core.Model.Options.User
+﻿namespace CrowdFundingApplication.Core.Model.Options.User
 {
     public class AddUserOptions
     {

@@ -2,6 +2,7 @@
 using Autofac;
 using CrowdFundingApplication.Core.Data;
 using CrowdFundingApplication.Core.Services;
+using CrowdFundingApplication.Core.Services.Interfaces;
 
 namespace CrowdFundingApplication.Core
 {
@@ -24,7 +25,32 @@ namespace CrowdFundingApplication.Core
             builder
                 .RegisterType<UserService>()
                 .InstancePerLifetimeScope()
-                .As<IUserServices>();
+                .As<IUserService>();            
+            
+            builder
+                .RegisterType<ProjectService>()
+                .InstancePerLifetimeScope()
+                .As<IProjectService>();              
+            
+            builder
+                .RegisterType<MediaService>()
+                .InstancePerLifetimeScope()
+                .As<IMediaService>();              
+            
+            builder
+                .RegisterType<PostService>()
+                .InstancePerLifetimeScope()
+                .As<IPostService>();             
+            
+            builder
+                .RegisterType<IncentiveService>()
+                .InstancePerLifetimeScope()
+                .As<IIncentiveService>();            
+            
+            builder
+                .RegisterType<LoggerService>()
+                .InstancePerLifetimeScope()
+                .As<ILoggerService>();
 
             builder
                 .RegisterType<CrowdFundingDbContext>()

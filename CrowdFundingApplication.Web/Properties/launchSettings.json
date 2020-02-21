@@ -32,7 +32,7 @@
             "launchUrl": "http://localhost:5000/",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_HTTPS_PORT": "44300"
+                "ASPNETCORE_HTTPS_PORT": "5001"
             }
 
         }

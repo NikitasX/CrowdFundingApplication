@@ -1,29 +1,26 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Xunit;
+using System;
 using Autofac;
+using System.Threading.Tasks;
 using CrowdFundingApplication.Core.Data;
 using CrowdFundingApplication.Core.Model.Options.User;
-using CrowdFundingApplication.Core.Services;
-using Xunit;
+using CrowdFundingApplication.Core.Services.Interfaces;
 
 namespace CrowdFundingApplication.Tests
 {
     public class UserServiceTests : IClassFixture<CrowdFundingApplicationFixture>
     {
 
-        private readonly IUserServices ursv_;
+        private readonly IUserService ursv_;
 
         private readonly CrowdFundingDbContext context_;
 
         public static Random GenerateRandomNumber = new Random();
-        /// <summary>
-        /// Constructor
-        /// </summary>
+
         public UserServiceTests(CrowdFundingApplicationFixture fixture)
         {
             context_ = fixture.DbContext;
-            ursv_ = fixture.Container.Resolve<IUserServices>();
+            ursv_ = fixture.Container.Resolve<IUserService>();
         }
 
         /// <summary>
@@ -159,7 +156,7 @@ namespace CrowdFundingApplication.Tests
         [Fact]
         public async Task UpdateUserFailure_Email_Already_Exists()
         {
-            var updateUser = await ursv_.UpdateUser(1, new UpdateUserOptions()
+            var updateUser = await ursv_.UpdateUser(2, new UpdateUserOptions()
             {
                 UserFirstName = "Nikitas",
                 UserLastName = "Xanthos",
