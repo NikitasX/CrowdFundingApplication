@@ -30,7 +30,22 @@ namespace CrowdFundingApplication.Core
             builder
                 .RegisterType<ProjectService>()
                 .InstancePerLifetimeScope()
-                .As<IProjectService>();            
+                .As<IProjectService>();              
+            
+            builder
+                .RegisterType<MediaService>()
+                .InstancePerLifetimeScope()
+                .As<IMediaService>();              
+            
+            builder
+                .RegisterType<PostService>()
+                .InstancePerLifetimeScope()
+                .As<IPostService>();             
+            
+            builder
+                .RegisterType<IncentiveService>()
+                .InstancePerLifetimeScope()
+                .As<IIncentiveService>();            
             
             builder
                 .RegisterType<LoggerService>()

@@ -132,7 +132,7 @@ namespace CrowdFundingApplication.Core.Services
             }
 
             if (success) {
-                return ApiResult<Media>.CreateSuccess(media);
+                return ApiResult<Media>.CreateSuccess(null);
             } else {
                 return new ApiResult<Media>(
                     StatusCode.InternalServerError,
