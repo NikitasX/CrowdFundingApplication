@@ -141,7 +141,8 @@ namespace CrowdFundingApplication.Core.Services
 
 
             if (project == null) {
-                return new ApiResult<Project>(StatusCode.NotFound,
+                return new ApiResult<Project>(
+                    StatusCode.NotFound,
                     $"Project Id not found in database");
             }
 
@@ -229,7 +230,7 @@ namespace CrowdFundingApplication.Core.Services
 
             if (!string.IsNullOrWhiteSpace(options.ProjectTitle)) {
                 query = query
-                    .Where(c => c.ProjectTitle == options.ProjectTitle);
+                    .Where(c => c.ProjectTitle.Contains(options.ProjectTitle));
             }
 
             if (options.ProjectId != 0) {
@@ -241,9 +242,15 @@ namespace CrowdFundingApplication.Core.Services
                 query = query
                     .Where(c => c.ProjectCategory == options.ProjectCategory);
             }
-            if (options.ProjectDateExpiring != default(DateTimeOffset)) {
+
+            if (options.ProjectDateExpiringFrom != default(DateTimeOffset)) {
                 query = query.Where(c =>
-                   c.ProjectDateExpiring == options.ProjectDateExpiring);
+                   c.ProjectDateExpiring > options.ProjectDateExpiringFrom);
+            }            
+            
+            if (options.ProjectDateExpiringTo != default(DateTimeOffset)) {
+                query = query.Where(c =>
+                   c.ProjectDateExpiring < options.ProjectDateExpiringTo);
             }
 
             return query.Take(500);

@@ -156,7 +156,7 @@ namespace CrowdFundingApplication.Tests
         [Fact]
         public async Task UpdateUserFailure_Email_Already_Exists()
         {
-            var updateUser = await ursv_.UpdateUser(1, new UpdateUserOptions()
+            var updateUser = await ursv_.UpdateUser(2, new UpdateUserOptions()
             {
                 UserFirstName = "Nikitas",
                 UserLastName = "Xanthos",

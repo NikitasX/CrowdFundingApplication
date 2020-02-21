@@ -9,7 +9,9 @@ namespace CrowdFundingApplication.Core.Model.Options.Project
         public string ProjectTitle { get; set; }
 
         public ProjectCategory ProjectCategory { get; set; }
-        
-        public DateTimeOffset ProjectDateExpiring { get; set; }
+
+        public DateTimeOffset ProjectDateExpiringTo { get; set; }
+
+        public DateTimeOffset ProjectDateExpiringFrom { get; set; }
     }
 }
