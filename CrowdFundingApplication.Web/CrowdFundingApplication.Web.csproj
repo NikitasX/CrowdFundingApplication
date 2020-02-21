@@ -8,6 +8,10 @@
     <ProjectReference Include="..\CrowdFundingApplication.Core\CrowdFundingApplication.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+  </ItemGroup>
+
 
 
 </Project>
