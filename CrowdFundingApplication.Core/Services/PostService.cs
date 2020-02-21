@@ -67,17 +67,13 @@ namespace CrowdFundingApplication.Core.Services
             var project = await projects.GetProjectById(projectId);
 
             if(!project.Success) {
-                return new ApiResult<Post>(
-                    StatusCode.NotFound,
-                    $"Project Id not found in database");
+                return project.ToResult<Post>();
             }           
             
             var user = await users.GetUserById(userId);
 
             if(!user.Success) {
-                return new ApiResult<Post>(
-                    StatusCode.NotFound,
-                    $"User Id not found in database");
+                return user.ToResult<Post>();
             }
 
             var post = new Post() 
@@ -125,9 +121,7 @@ namespace CrowdFundingApplication.Core.Services
             var project = await projects.GetProjectById(projectId);
 
             if(!project.Success) {
-                return new ApiResult<IQueryable<Post>>(
-                    StatusCode.NotFound,
-                    "Project not found in database");
+                return project.ToResult<IQueryable<Post>>();
             }
 
             var query = context

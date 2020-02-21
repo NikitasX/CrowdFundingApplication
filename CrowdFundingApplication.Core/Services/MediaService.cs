@@ -59,9 +59,7 @@ namespace CrowdFundingApplication.Core.Services
             var project = await projects.GetProjectById(projectId);
 
             if(!project.Success) {
-                return new ApiResult<Media>(
-                    StatusCode.NotFound,
-                    "Project Id not found in database");
+                return project.ToResult<Media>();
             }
 
             var media = new Media()
@@ -142,7 +140,6 @@ namespace CrowdFundingApplication.Core.Services
             }
         }
 
-        ///DIMITRIS CHECK
         public async Task<ApiResult<IQueryable<Media>>> GetMediaByProjectId(int projectId)
         {
             if(projectId <= 0) {
@@ -154,9 +151,7 @@ namespace CrowdFundingApplication.Core.Services
             var project = await projects.GetProjectById(projectId);
 
             if(!project.Success) {
-                return new ApiResult<IQueryable<Media>>(
-                    StatusCode.NotFound,
-                    "Project id not found in database");
+                return project.ToResult<IQueryable<Media>>();
             }
 
             return ApiResult<IQueryable<Media>>.CreateSuccess(context

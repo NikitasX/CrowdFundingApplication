@@ -16,9 +16,7 @@ namespace CrowdFundingApplication.Tests
         private readonly CrowdFundingDbContext context_;
 
         public static Random GenerateRandomNumber = new Random();
-        /// <summary>
-        /// Constructor
-        /// </summary>
+
         public UserServiceTests(CrowdFundingApplicationFixture fixture)
         {
             context_ = fixture.DbContext;
