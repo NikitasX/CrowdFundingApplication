@@ -253,7 +253,11 @@ namespace CrowdFundingApplication.Core.Services
                    c.ProjectDateExpiring < options.ProjectDateExpiringTo);
             }
 
-            return query.Take(500);
+            return query
+                .Include(m => m.ProjectMedia)
+                .Include(p => p.ProjectPosts)
+                .Include(i => i.ProjectIncentives)
+                .Take(500);
         }
     }
 }

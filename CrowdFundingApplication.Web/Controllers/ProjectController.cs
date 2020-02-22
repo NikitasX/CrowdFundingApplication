@@ -7,6 +7,7 @@ using CrowdFundingApplication.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using CrowdFundingApplication.Web.Extensions;
 
 namespace CrowdFundingApplication.Web.Controllers
 {
@@ -37,6 +38,26 @@ namespace CrowdFundingApplication.Web.Controllers
         public IActionResult List()
         {
             return View();
+        }        
+        
+        [HttpGet("project/view/{id}")]
+        public async Task<IActionResult> SingleProject(int id)
+        {
+            var model = await projects_.GetProjectById(id);
+
+            return model.AsStatusResult();
+        }
+
+        [HttpGet("project/getbyid/{id}")]
+        public async Task<IActionResult> GetProjectById(int id)
+        {
+            var project = await projects_.GetProjectById(id);
+
+            return Json(project.Data,
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
         }
 
         public IActionResult ListProjects()
