@@ -98,7 +98,7 @@ namespace CrowdFundingApplication.Tests
         [Fact]
         public async Task RemoveMedia_Success()
         {
-            var media = await med_.RemoveMedia(3);
+            var media = await med_.RemoveMedia(2);
 
             Assert.Null(media.Data);
             Assert.Equal(StatusCode.Ok, media.ErrorCode);

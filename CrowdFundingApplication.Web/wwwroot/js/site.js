@@ -29,3 +29,37 @@ $.ajax({
 
 }).fail((xhr) => {
 });
+
+$.ajax({
+
+    url: '/User/ListUsers',
+    type: 'GET',
+    data: {
+        UserEmail: email,
+        Uservat: vatnumber,
+        UserFirstName: firstname,
+        UserLastName: lastname,
+        UserPhone: phone
+    }
+}).done((users) => {
+
+    let $userList = $('.js-user-list');
+    $userList.html('');
+    users.forEach(element => {
+        let listItem =
+            `<tr>
+                    <td>${element.firstname}</td>
+                    <td>${element.email}</td>
+                    <td>${element.firstname}</td>
+                    <td>${element.lastname}</td>
+                    <td>${element.phone}</td>
+                </tr>`;
+        $userList.append(listItem);
+    });
+
+}).fail((xhr) => {
+   
+});
+
+
+
