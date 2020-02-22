@@ -15,6 +15,8 @@ namespace CrowdFundingApplication.Core.Services.Interfaces
 
         Task<ApiResult<IQueryable<Incentive>>> GetIncentiveByProjectId(int projectId);
 
+        Task<IQueryable<BackedIncentives>> GetIncentiveByUserId(int userId);
+
         IQueryable<Incentive> SearchIncentive(SearchIncentiveOptions options);
 
         Task<ApiResult<Incentive>> AddIncentiveBacker

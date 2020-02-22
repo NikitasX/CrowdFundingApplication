@@ -244,6 +244,27 @@ namespace CrowdFundingApplication.Core.Services
                 .AsQueryable()
                 .Where(m => m.Project == project.Data)
                 .Take(500));
+        }        
+        
+        public async Task<IQueryable<BackedIncentives>> GetIncentiveByUserId
+            (int userId)
+        {
+            if (userId <= 0) {
+                return null;
+            }
+
+            var user = await users.GetUserById(userId);
+
+            if (!user.Success) {
+                return null;
+            }
+
+            return context
+                .Set<BackedIncentives>()
+                .AsQueryable()
+                .Where(b => b.UserId == userId)
+                .Include(u => u.BackedIncentive.Project)
+                .Take(500);
         }
 
         public IQueryable<Incentive> SearchIncentive
