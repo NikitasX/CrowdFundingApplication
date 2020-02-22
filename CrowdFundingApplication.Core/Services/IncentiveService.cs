@@ -66,7 +66,7 @@ namespace CrowdFundingApplication.Core.Services
             if(string.IsNullOrWhiteSpace(options.IncentiveReward)) {
                 return new ApiResult<Incentive>(
                     StatusCode.BadRequest,
-                    $"Incentive title cannot be null or whitespace");
+                    $"Incentive reward cannot be null or whitespace");
             }
 
             var project = await projects.GetProjectById(projectId);
@@ -215,7 +215,6 @@ namespace CrowdFundingApplication.Core.Services
                     $"Incentive not deleted");
             }
 
-            ///DIMITRIS CHECK
             if (success) {
                 return ApiResult<Incentive>.CreateSuccess(incentive);
             } else {
@@ -325,7 +324,7 @@ namespace CrowdFundingApplication.Core.Services
 
             if(incentive == null) {
                 return new ApiResult<Incentive>(
-                    StatusCode.BadRequest,
+                    StatusCode.NotFound,
                     "Incentive id not found in database");
             }
 

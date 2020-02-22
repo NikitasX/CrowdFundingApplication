@@ -171,7 +171,7 @@ namespace CrowdFundingApplication.Core.Services
             }
 
             if (success) {
-                return ApiResult<Post>.CreateSuccess(post);
+                return ApiResult<Post>.CreateSuccess(null);
             } else {
                 return new ApiResult<Post>(
                     StatusCode.InternalServerError,
