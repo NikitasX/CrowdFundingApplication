@@ -1,17 +1,9 @@
 ﻿using Xunit;
-using System;
 using Autofac;
-using System.Linq;
-using System.Globalization;
 using System.Threading.Tasks;
 using CrowdFundingApplication.Core;
 using CrowdFundingApplication.Core.Data;
-using CrowdFundingApplication.Core.Model;
-using CrowdFundingApplication.Core.Model.Options.User;
 using CrowdFundingApplication.Core.Services.Interfaces;
-using CrowdFundingApplication.Core.Model.Options.MediaOptions;
-using CrowdFundingApplication.Core.Model.Options.Project;
-using CrowdFundingApplication.Core.Model.Options.ProjectOptions;
 using CrowdFundingApplication.Core.Model.Options.PostOptions;
 
 namespace CrowdFundingApplication.Tests
