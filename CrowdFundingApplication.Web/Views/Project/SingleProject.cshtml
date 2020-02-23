@@ -55,39 +55,39 @@
     var posts = Model.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
     var incentives = Model.ProjectIncentives.ToList();
 
-    var progress = (Model.ProjectCapitalAcquired * 100) / Model.ProjectFinancialGoal;
+    var progress = Math.Round((Model.ProjectCapitalAcquired * 100) / Model.ProjectFinancialGoal, 2);
 
 }
 
 <div class="row">
     <div class="dashboard-elements sidebar-left col col-md-3 m-0 p-0">
-        <div class="col-sm-12 mb-2 p-2">
             @if (media != null && media.Count != 0) {
+            <div class="col-sm-12 mb-2 p-2">
                 <img class="col-sm-12 m-0 p-0" src="@media[0].MediaURL" />
+            </div>
             }
-        </div>
-        <div class="col-sm-12 mb-2 p-2 pt-3">
-            <h5 class="col-sm-12 text-info font-weight-bold pb-2 pl-3 mb-0">@Model.ProjectTitle</h5>
+            <div class="col-sm-12 mb-2 p-2 pt-3">
+                <h5 class="col-sm-12 text-info font-weight-bold pb-2 pl-3 mb-0">@Model.ProjectTitle</h5>
 
-            <ul class="list-group">
-                <li class="list-group-item text-info">
-                    Description: @Model.ProjectDescription
-                </li>
-                <li class="list-group-item text-info">
-                    Category: <span class="font-weight-bold text-info">@Model.ProjectCategory</span>
-                </li>
-                <li class="list-group-item text-info">
-                    Project Goal: <span class="font-weight-bold text-info">@Model.ProjectFinancialGoal$</span>
-                </li>
-                <li class="list-group-item text-info">
-                    Expiring: 
-                    <span class="font-weight-bold text-info">
-                        @Model.ProjectDateExpiring.ToString("dd/MM/yyyy")
-                    </span>
-                </li>
-            </ul>
+                <ul class="list-group">
+                    <li class="list-group-item text-info">
+                        Description: @Model.ProjectDescription
+                    </li>
+                    <li class="list-group-item text-info">
+                        Category: <span class="font-weight-bold text-info">@Model.ProjectCategory</span>
+                    </li>
+                    <li class="list-group-item text-info">
+                        Project Goal: <span class="font-weight-bold text-info">@Model.ProjectFinancialGoal$</span>
+                    </li>
+                    <li class="list-group-item text-info">
+                        Expiring:
+                        <span class="font-weight-bold text-info">
+                            @Model.ProjectDateExpiring.ToString("dd/MM/yyyy")
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     <div class="col col-md-6 dashboard-elements">
         <div class="col-sm-12 mb-2 p-2" style="min-height:200px;">
             <form class="postForm">

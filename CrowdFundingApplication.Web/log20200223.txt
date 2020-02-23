@@ -1,2 +1,0 @@
-2020-02-23 20:59:12.216 +02:00 [ERR] InternalServerError
-2020-02-23 20:59:12.248 +02:00 [INF] Changes not saved, backer not added.

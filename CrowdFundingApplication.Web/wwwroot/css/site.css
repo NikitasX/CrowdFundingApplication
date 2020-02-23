@@ -11,8 +11,7 @@ a.navbar-brand {
     padding: 0;
 }
 .card-text {
-    min-height:50px;
-    max-height:100px;
+    height:100px;
 }
 button {
     cursor:pointer;

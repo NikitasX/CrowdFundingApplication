@@ -45,6 +45,11 @@ namespace CrowdFundingApplication.Web.Controllers
         public IActionResult List()
         {
             return View();
+        }            
+        
+        public IActionResult ListPopular()
+        {
+            return View();
         }        
         
         [HttpPost("project/addprojectpost/{id}")]
@@ -95,6 +100,20 @@ namespace CrowdFundingApplication.Web.Controllers
                 .Set<Project>()
                 .Include(m => m.ProjectMedia)
                 .Take(100)
+                .AsQueryable(), 
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+        }        
+        
+        public IActionResult ListProjectsPopular()
+        {
+            return Json(context_
+                .Set<Project>()
+                .Include(m => m.ProjectMedia)
+                .Take(100)
+                .OrderByDescending(p => p.ProjectCapitalAcquired)
                 .AsQueryable(), 
                 new JsonSerializerSettings
                 {
