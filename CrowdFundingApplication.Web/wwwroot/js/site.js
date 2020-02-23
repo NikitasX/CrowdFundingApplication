@@ -26,17 +26,58 @@ $.ajax({
                 <div class="card-body">
                     <h5 class="card-title">${project.ProjectTitle}</h5>
                     <p class="card-text">${project.ProjectDescription}</p>
-                    <label class="col col-sm-12 text-center">${progress}%
+                    <label class="col col-sm-12 text-center font-weight-bold text-primary">${progress}% funded
                         <div class="progress mb-3">
                           <div class="progress-bar progress-bar-striped" role="progressbar"  
                                 aria-valuenow="${progress}" aria-valuemin="0" style="width:${progress}%;" aria-valuemax="100">
                           </div>
                         </div>
                     </label>
-                    <a href="#" class="btn btn-primary">ViewProject</a>
+                    <a href="/project/view/${project.ProjectId}" class="col col-sm-12 btn btn-primary">View Project</a>
                 </div>
             </div>`;
 
         $('.js-view-project-list').append(card);
+    });
+});
+
+$('.js-add-post').on('click', () => {
+
+    let postFormData = $('.postForm').serializeArray();
+
+    $('.js-add-post').prop('disabled', true);
+
+    let data = JSON.stringify({
+        PostTitle : postFormData[0].value,
+        PostExcerpt : postFormData[1].value
+    });
+
+    $.ajax({
+        url: `/project/addprojectpost/${postFormData[2].value}`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: data
+    }).done((post) => {
+        location.reload();
+    }).fail((xhr) => {
+        alert(xhr.responseText);
+
+        setTimeout(() => {
+            $('.js-add-post').prop('disabled', false);
+        }, 1000);
+    });
+})
+
+$('.js-incentive').on('click', function() {
+    let projId = $('#projectId').val();
+    let incentiveId = $(this).find('input[type="hidden"]').val();
+
+    $.ajax({
+        url: `https://localhost:5001/project/AddProjectBacker/${projId}/${incentiveId}`,
+        type: 'POST'
+    }).done((incentive) => {
+        location.reload();
+    }).fail((xhr) => {
+        alert(xhr.responseText);
     });
 });

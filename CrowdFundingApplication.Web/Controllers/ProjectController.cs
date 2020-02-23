@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using CrowdFundingApplication.Web.Extensions;
+using CrowdFundingApplication.Core.Model.Options.PostOptions;
 
 namespace CrowdFundingApplication.Web.Controllers
 {
@@ -16,13 +17,19 @@ namespace CrowdFundingApplication.Web.Controllers
 
         private readonly CrowdFundingDbContext context_;
         private readonly IProjectService projects_;
+        private readonly IIncentiveService incentives_;
+        private readonly IPostService posts_;
 
         public ProjectController(
             CrowdFundingDbContext ctx,
+            IPostService pst,
+            IIncentiveService inc,
             IProjectService prj)
         {
             context_ = ctx;
             projects_ = prj;
+            posts_ = pst;
+            incentives_ = inc;
         }
 
         public IActionResult Index()
@@ -40,12 +47,34 @@ namespace CrowdFundingApplication.Web.Controllers
             return View();
         }        
         
+        [HttpPost("project/addprojectpost/{id}")]
+        public async Task<IActionResult> AddProjectPost
+            (int id, [FromBody] AddPostOptions options)
+        {
+            var result = await posts_.AddPost(id, 1, options);
+
+            return result.AsStatusResult();
+        }        
+        
+        [HttpPost("project/AddProjectBacker/{projectId}/{incentiveId}")]
+        public async Task<IActionResult> AddProjectBacker
+            (int projectId,  int incentiveId)
+        {
+            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 1);
+
+            return result.AsStatusResult();
+        }
+        
         [HttpGet("project/view/{id}")]
         public async Task<IActionResult> SingleProject(int id)
         {
             var model = await projects_.GetProjectById(id);
 
-            return model.AsStatusResult();
+            if(model.ErrorCode == Core.StatusCode.Ok) {
+                return View(model.Data);
+            } else {
+                return model.AsStatusResult();
+            }
         }
 
         [HttpGet("project/getbyid/{id}")]

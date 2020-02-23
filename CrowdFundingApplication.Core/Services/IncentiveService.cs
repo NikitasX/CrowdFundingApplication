@@ -373,7 +373,10 @@ namespace CrowdFundingApplication.Core.Services
                 IncentiveId = incentive.IncentiveId
             };
 
+            project.Data.ProjectCapitalAcquired += incentive.IncentivePrice;
+
             context.Add(backedIncentive);
+            context.Update(project.Data);
 
             var success = false;
 
