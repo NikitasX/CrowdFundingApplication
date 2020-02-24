@@ -275,8 +275,8 @@ namespace CrowdFundingApplication.Tests
         {
 
             var project = 1;
-            var incentiveId = 3;
-            var backer = 2;
+            var incentiveId = 1;
+            var backer = 3;
 
             var incentive = await inc_.AddIncentiveBacker(project, incentiveId, backer);
 
