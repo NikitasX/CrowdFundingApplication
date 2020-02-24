@@ -1,126 +1,98 @@
 ﻿@model CrowdFundingApplication.Core.Model.Options.ProjectOptions.AddProjectOptions
 
-<form id="regForm" class="js-add-project" method="post"
-       action="@Url.Action("Add", "project")">
-     
+    <div class="row">
+        <div class="col col-md-2"></div>
 
+        <div class="tab col-md-8">
+            <form data-form="0" class="js-add-project">
+                <h4>Create Project:</h4>
+                <div class="form-group">
+                    @Html.TextBoxFor(c => c.ProjectTitle,
+                    new { @class = "form-control js-projecttitle", placeholder = "Project title..." })
+                </div>
+                <div class="form-group">
+                    @Html.TextAreaFor(c => c.ProjectDescription,
+                    new { @class = "form-control js-projectdescription", placeholder = "Project description..." })
+                </div>
+                <div class="form-group">
+                    <div class="input-group-prepend">
 
+                        @Html.TextBoxFor(c => c.ProjectFinancialGoal,
+                        new { @class = "form-control js-projectgoal", placeholder = "Financial goal in $" })
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select name="ProjectCategory" class="form-control">
+                        @{
+                            var categories = Enum.GetValues(
+                                typeof(CrowdFundingApplication.Core.Model.ProjectCategory))
+                                .Cast<CrowdFundingApplication.Core.Model.ProjectCategory>();
 
-    <!-- One "tab" for each step in the form: -->
-    <div class="tab">
-       
-        <h2>Create Project:</h2>
-        <p>
-            <label for="">Project Title</label>
-            @Html.TextBoxFor(c => c.ProjectTitle,
-       new { @class = "form-control js-projecttitle", placeholder = "Enter your project title" })
-
-        </p>
-        <p>
-            <label for="validationTextarea">Description</label>
-            @Html.TextAreaFor(c => c.ProjectDescription,
-      new { @class = "form-control js-projectdescription", placeholder = "Descript your project" })
-
-        </p>
-        <p>
-            <label for="">Financial Goal</label>
-            <div class="input-group">
-                @Html.TextBoxFor(c => c.ProjectFinancialGoal,
-      new { @class = "form-control js-projectgoal", placeholder = "Enter the financial goal" })
-                <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
+                            foreach (var category in categories) {
+                                <option value="@category">@category</option>
+                            }
+                        }
+                    </select>
                 </div>
 
-            </div>
-        </p>
-        <p>
-            <div class="form-control">
-                <div class="col-md-12 ">
-                    <label for="projectcategory">Project Category</label>
-                    @Html.DropDownListFor(c => c.ProjectCategory, new SelectList(Enum.GetValues(typeof(CrowdFundingApplication.Core.Model.ProjectCategory))),
-                                    "Select Category")
+                <div class="form-group">
+                    <input type="date" class="form-control" name="ProjectDateExpiring" />
                 </div>
-            </div>
-        </p>
-
-    </div>
-
-    <div class="tab">
-        <h2>Media:</h2>
-        <p>
-            <div class="row">
-
-                <select class="custom-select col-md-2 mb-3">
-                    <option selected>Open this select menu</option>
-                    <option value="1">Photo</option>
-                    <option value="2">Video</option>
-
-                </select>
-
-                <input type="text" class="form-control col-md-10" />
-            </div>
-        </p>
-
-    </div>
-
-    <div class="tab">
-        <h2> ADD INCENTIVE</h2>
-
-        <p>
-            <label for="exampleInputEmail1">Incentive Title</label>
-            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter the reward title">
-
-        </p>
-
-        <p>
-            <label for="exampleInputEmail1">Incentive Price</label>
-            <div class="input-group">
-                <input type="number" class="form-control" aria-describedby="emailHelp" placeholder="Enter your the financial goal">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
+                <div class="col col-md-12 d-flex justify-content-end pr-0">
+                    <button type="button" class="btn btn-primary js-submit-project">Next</button>
                 </div>
-
-            </div>
-       </p>
-
-         <p>
-            <label for="inputZip">Reward</label>
-            <input type="text" class="form-control" id="inputZip">
-        </p>
-
-        <p>
-            <label for="validationTextarea">Description</label>
-            <textarea class="form-control " id="validationTextarea" placeholder="Descript your inception" required></textarea>
-
-        </p>
-    </div>
-
-
-
-    <div style="overflow:auto;">
-        <div style="float:right;">
-            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-            <button type="button" class="btn btn-primary js-submit-project" id="nextBtn" onclick="nextPrev(1)">Next</button>
-
+            </form>
         </div>
+
+        <div class="tab col-md-8">
+            <form data-form="1" class="js-add-media">
+                <h4>Add Media:</h4>
+                <div class="row">
+                    <select name="MediaType" class="form-control col-md-2">
+                        @{
+                            var mediatypes = Enum.GetValues(
+                                typeof(CrowdFundingApplication.Core.Model.MediaTypes))
+                                .Cast<CrowdFundingApplication.Core.Model.MediaTypes>();
+
+                            foreach (var type in mediatypes) {
+                                <option value="@type">@type</option>
+                            }
+                        }
+                    </select>
+                    <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." />
+                </div>
+                <input type="hidden" class="js-project-id" />
+                <div class="col col-md-12 d-flex justify-content-end pr-0">
+                    <button type="button" class="btn btn-primary js-submit-media continue mr-2">Add and continue</button>
+                    <button type="button" class="btn btn-primary js-submit-media">Next</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tab col-md-8">
+            <form data-form="2">
+                <h4>Add Incentive:</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="IncentiveTitle" placeholder="Title...">
+                </div>
+
+                <div class="form-group d-flex justify-content-start col-md-12 p-0">
+                    <input type="number" class="form-control col-md-3 mr-3" name="IncentivePrice" placeholder="Price in $">
+
+                    <input type="text" name="IncentiveReward" class="form-control" placeholder="Reward...">
+                </div>
+
+                <div>
+                    <textarea class="form-control" name="IncentiveDescription" placeholder="Description..."></textarea>
+                </div>
+                <div class="col col-md-12 d-flex justify-content-end mt-2 pr-0">
+                    <button type="button" class="btn btn-primary js-submit-incentive continue mr-2">Add and continue</button>
+                    <button type="button" class="btn btn-primary js-submit-incentive">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col col-md-2"></div>
+        <div class="col col-md-2"></div>
     </div>
-
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-       
-    </div>
-
-</form>
-
-<div class="alert alert-danger js-add-project-alert" role="alert"
-     style="display: none">
-
-</div>
-
-<div class="alert alert-success js-add-project-success" role="alert"
-     style="display: none">
-
-</div>

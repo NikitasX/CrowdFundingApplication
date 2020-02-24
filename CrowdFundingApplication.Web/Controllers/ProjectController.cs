@@ -17,12 +17,14 @@ namespace CrowdFundingApplication.Web.Controllers
 
         private readonly CrowdFundingDbContext context_;
         private readonly IProjectService projects_;
+        private readonly IMediaService media_;
         private readonly IIncentiveService incentives_;
         private readonly IPostService posts_;
 
         public ProjectController(
             CrowdFundingDbContext ctx,
             IPostService pst,
+            IMediaService med,
             IIncentiveService inc,
             IProjectService prj)
         {
@@ -30,6 +32,7 @@ namespace CrowdFundingApplication.Web.Controllers
             projects_ = prj;
             posts_ = pst;
             incentives_ = inc;
+            media_ = med;
         }
 
         public IActionResult Index()
@@ -65,7 +68,7 @@ namespace CrowdFundingApplication.Web.Controllers
         public async Task<IActionResult> AddProjectBacker
             (int projectId,  int incentiveId)
         {
-            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 1);
+            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 2);
 
             return result.AsStatusResult();
         }
@@ -125,12 +128,27 @@ namespace CrowdFundingApplication.Web.Controllers
         public async Task<IActionResult> AddProject(
            [FromBody] Core.Model.Options.ProjectOptions.AddProjectOptions options)
         {
-            var result = await projects_.AddProject(1,
-                options);
-
+            var result = await projects_.AddProject(1, options);
 
             return result.AsStatusResult();
+        }       
+        
+        [HttpPost("project/AddProjectMedia/{projectId}")]
+        public async Task<IActionResult> AddProjectMedia(int projectId,
+           [FromBody] Core.Model.Options.MediaOptions.AddMediaOptions options)
+        {
+            var result = await media_.AddMedia(projectId, options);
 
+            return result.AsStatusResult();
+        }        
+        
+        [HttpPost("project/AddProjectIncentive/{projectId}")]
+        public async Task<IActionResult> AddProjectIncentive(int projectId,
+           [FromBody] Core.Model.Options.IncentiveOptions.AddIncentiveOptions options)
+        {
+            var result = await incentives_.AddIncentive(projectId, options);
+
+            return result.AsStatusResult();
         }
     }
 }

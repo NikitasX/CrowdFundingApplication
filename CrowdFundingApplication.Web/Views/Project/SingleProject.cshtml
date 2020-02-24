@@ -34,22 +34,14 @@
     .well {
         position:relative;
     }
-    .blog-date {
-        position: absolute;
-        background: #337ab7;
-        top: 50%;
-        margin-top:-20px;
-        right: 5px;
-        color: #fff;
-        border-radius: 25px;
-        padding: 5px 15px;
-        font-weight: 700;
-    }
     .text-muted {
         font-size:14px;
     }
     .incentive {
         cursor:pointer;
+    }
+    .post-container {
+        overflow:auto;
     }
 </style>
 
@@ -58,7 +50,8 @@
     var posts = Model.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
     var incentives = Model.ProjectIncentives.ToList();
 
-    var progress = Math.Round((Model.ProjectCapitalAcquired * 100) / Model.ProjectFinancialGoal, 2);
+    var progress = Math.Round((Model.ProjectCapitalAcquired * 100) / 
+        Model.ProjectFinancialGoal, 2);
 
 }
 
@@ -102,7 +95,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-sm-12 mb-2 p-2" style="max-height:600px;">
+        <div class="col-sm-12 post-container mb-2 p-2" style="max-height:600px;">
             @{
                 if (posts != null && posts.Count != 0) {
                     foreach (var post in posts) {
@@ -125,7 +118,8 @@
         </div>
     </div>
     <div class="col col-md-3 dashboard-elements">
-        <div class="col-sm-12 mb-2 p-2" style="min-height:100px;">
+        <div class="col-sm-12 mb-2 p-2" style="        min-height: 100px;
+">
             <div class="col col-sm-12 text-center font-weight-bold text-info">
                 @progress% funded
                 <div class="progress" style="height: 35px;">
