@@ -235,6 +235,7 @@ namespace CrowdFundingApplication.Core.Services
             }
 
             return query
+                .Include(cp => cp.UserCreatedProjects)
                 .Take(500);
         }
     }
