@@ -48,6 +48,9 @@
     .text-muted {
         font-size:14px;
     }
+    .incentive {
+        cursor:pointer;
+    }
 </style>
 
 @{ 
@@ -137,7 +140,7 @@
             @{
                 if (incentives != null && incentives.Count != 0) {
                     foreach (var incentive in incentives) {
-                        <div class="well m-2 js-incentive">
+                        <div class="well m-2 incentive js-incentive">
                             <input type="hidden" value="@incentive.IncentiveId" />
                             <div class="media">
                                 <div class="media-body">

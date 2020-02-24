@@ -49,119 +49,6 @@ $.ajax({
 }).done((projects) => {
     projects.forEach(project => {
 
-}).fail((xhr) => {
-});
-
-
-$('.js-submit-project').on('click', () => {
-    $('.js-submit-project').attr('disable', true);
-    let projecttitle = $('.js-projecttitle').val();
-    let projectdescription = $('.js-projectdescription').val();
-    let projectgoal = parseFloat($('.js-projectgoal').val());
-    //  let projectcategory = $('.js-projectcategory').val();
-    $.ajax({
-        url: 'https://localhost:5001/project/AddProject',
-        type: 'POST',
-        contentType: 'application/json',
-        data: {
-            projecttitle: projecttitle,
-            projectdescription:projectdescription,
-            projectgoal: projectgoal
-            //  projectCategory=projectcategory
-        }
-    }).done((project) => {
-        debugger;
-        //$('.alert').hide();
-        //let $alertArea = $('.js-add-project-success');
-        //$alertArea.html(`Successfully added project with id ${project.id}`);
-        //$alertArea.show();
-        //$('form.js-add-project').hide();
-    }).fail((xhr) => {
-        debugger;
-        //$('.alert').hide();
-
-        //let $alertArea = $('.js-add-project-alert');
-        //$alertArea.html(xhr.responseText);
-        //$alertArea.fadeIn();
-
-
-    });
-});
-
-
-
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
-
-function showTab(n) {
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    // ... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
-}
-
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-        //...the form gets submitted:
-        document.getElementById("regForm").submit();
-        return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-}
-
-function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false:
-            valid = false;
-        }
-    }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
-}
-
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-}
         if (project.ProjectMedia.length == 0) {
             var projectImage = '/images/image-not-found.png';
         } else {
@@ -192,8 +79,140 @@ function fixStepIndicator(n) {
             </div>`;
 
         $('.js-view-project-list-popular').append(card);
+    })
+}).fail((xhr) => {
+});
+
+$('.js-incentive').on('click', function () {
+    let projId = $('#projectId').val();
+    let incentiveId = $(this).find('input[type="hidden"]').val();
+
+    $.ajax({
+        url: `https://localhost:5001/project/AddProjectBacker/${projId}/${incentiveId}`,
+        type: 'POST'
+    }).done((incentive) => {
+        location.reload();
+    }).fail((xhr) => {
+        alert(xhr.responseText);
     });
 });
+
+$('.js-submit-project').on('click', () => {
+    $('.js-submit-project').attr('disable', true);
+    let projecttitle = $('.js-projecttitle').val();
+    let projectdescription = $('.js-projectdescription').val();
+    let projectgoal = parseFloat($('.js-projectgoal').val());
+    //  let projectcategory = $('.js-projectcategory').val();
+    $.ajax({
+        url: 'https://localhost:5001/project/AddProject',
+        type: 'POST',
+        contentType: 'application/json',
+        data: {
+            projecttitle: projecttitle,
+            projectdescription: projectdescription,
+            projectgoal: projectgoal
+            //  projectCategory=projectcategory
+        }
+    }).done((project) => {
+        debugger;
+        //$('.alert').hide();
+        //let $alertArea = $('.js-add-project-success');
+        //$alertArea.html(`Successfully added project with id ${project.id}`);
+        //$alertArea.show();
+        //$('form.js-add-project').hide();
+    }).fail((xhr) => {
+        debugger;
+        //$('.alert').hide();
+
+        //let $alertArea = $('.js-add-project-alert');
+        //$alertArea.html(xhr.responseText);
+        //$alertArea.fadeIn();
+
+
+    });
+});
+
+
+
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+
+    let checker = $('.tab');
+
+    if (checker.length != 0) {
+        // This function will display the specified tab of the form ...
+        var x = document.getElementsByClassName("tab");
+
+        x[n].style.display = "block";
+
+        // ... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        // ... and run a function that displays the correct step indicator:
+        fixStepIndicator(n);
+    }
+}
+
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form... :
+        if (currentTab >= x.length) {
+            //...the form gets submitted:
+            document.getElementById("regForm").submit();
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false:
+                valid = false;
+            }
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class to the current step:
+        x[n].className += " active";
+    }
 
 $('.js-add-post').on('click', () => {
 
@@ -202,8 +221,8 @@ $('.js-add-post').on('click', () => {
     $('.js-add-post').prop('disabled', true);
 
     let data = JSON.stringify({
-        PostTitle : postFormData[0].value,
-        PostExcerpt : postFormData[1].value
+        PostTitle: postFormData[0].value,
+        PostExcerpt: postFormData[1].value
     });
 
     $.ajax({
@@ -219,19 +238,5 @@ $('.js-add-post').on('click', () => {
         setTimeout(() => {
             $('.js-add-post').prop('disabled', false);
         }, 1000);
-    });
-})
-
-$('.js-incentive').on('click', function() {
-    let projId = $('#projectId').val();
-    let incentiveId = $(this).find('input[type="hidden"]').val();
-
-    $.ajax({
-        url: `https://localhost:5001/project/AddProjectBacker/${projId}/${incentiveId}`,
-        type: 'POST'
-    }).done((incentive) => {
-        location.reload();
-    }).fail((xhr) => {
-        alert(xhr.responseText);
     });
 });
