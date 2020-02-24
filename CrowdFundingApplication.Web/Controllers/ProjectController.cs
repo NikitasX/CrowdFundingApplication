@@ -120,5 +120,17 @@ namespace CrowdFundingApplication.Web.Controllers
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProject(
+           [FromBody] Core.Model.Options.ProjectOptions.AddProjectOptions options)
+        {
+            var result = await projects_.AddProject(1,
+                options);
+
+
+            return result.AsStatusResult();
+
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@model CrowdFundingApplication.Web.Models.AddUserViewModel
 
 <div class="row">
     <div class="col col-sm-2"></div>
@@ -8,43 +8,43 @@
 
             <div class="form-row">
                 <div class="col-md-12 mb-3">
-                    <label for="exampleInputEmail1">Vat number</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your vatnumber">
+                    <label for="@Html.IdFor(u =>u.AddOptions.UserVat )">Vat number</label>
+                    @Html.TextBoxFor(u => u.AddOptions.UserVat, new { @class = "form-control js-uservat", placeholder = "Enter your vatnumber" })
                     <div class="js-validation-vatnumber validation-error" style="display: none">
-                        Invalid Vat number
+                        Invalid vat number
                     </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">First name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter you first name">
-                    <div class="js-validation-vatnumber validation-error" style="display: none">
-                        Invalid Vat number
+                    <label for="@Html.IdFor(u =>u.AddOptions.UserFirstName )">First name</label>
+                    @Html.TextBoxFor(u => u.AddOptions.UserFirstName, new { @class = "form-control js-userfirstname", placeholder = "Enter your first name" })
+                    <div class="js-validation-firstname validation-error" style="display: none">
+                        Invalid first name
                     </div>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">Last name</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter you last name ">
+                    <label for="@Html.IdFor(u =>u.AddOptions.UserLastName )">Last name</label>
+                    @Html.TextBoxFor(u => u.AddOptions.UserLastName, new { @class = "form-control js-userlastname", placeholder = "Enter your last name" })
                     <div class="js-validation-vatnumber validation-error" style="display: none">
-                        Invalid Vat number
+                        Invalid last name
                     </div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">Phone number</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your phone number">
+                    <label for="@Html.IdFor(u =>u.AddOptions.UserPhone )">Phone number</label>
+                    @Html.TextBoxFor(u => u.AddOptions.UserPhone, new { @class = "form-control js-userphone", placeholder = "Enter your phone number" })
                     <div class="js-validation-vatnumber validation-error" style="display: none">
                         Invalid Vat number
                     </div>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email address">
+                    <label for="@Html.IdFor(u =>u.AddOptions.UserEmail )">Email</label>
+                    @Html.TextBoxFor(u => u.AddOptions.UserEmail, new { @class = "form-control js-useremail", placeholder = "Enter your email" })
                     <div class="js-validation-vatnumber validation-error" style="display: none">
                         Invalid Vat number
                     </div>
@@ -53,11 +53,11 @@
 
 
 
-           
-
-
-
-            <button type="button" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary js-submit-user">Submit</button>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Expires</label>
+                <input type="text" class="form-control js-datepicker" />
+            </div>
         </form>
 
     </div>

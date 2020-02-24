@@ -1,140 +1,126 @@
-﻿@model CrowdFundingApplication.Web.Models.AddProjectViewModel
+﻿@model CrowdFundingApplication.Core.Model.Options.ProjectOptions.AddProjectOptions
+
+<form id="regForm" class="js-add-project" method="post"
+       action="@Url.Action("Add", "project")">
+     
 
 
-<div class="row">
-    <div class="col col-sm-2"></div>
-    <div class="col col-sm-8">
-        <form>
-            <h2> ADD PROJECT</h2>
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="exampleInputEmail1">Project Title</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your project title">
-                    <div class="js-validation-projecttitle validation-error" style="display: none">
-                        Invalid Project Title
-                    </div>
+
+    <!-- One "tab" for each step in the form: -->
+    <div class="tab">
+       
+        <h2>Create Project:</h2>
+        <p>
+            <label for="">Project Title</label>
+            @Html.TextBoxFor(c => c.ProjectTitle,
+       new { @class = "form-control js-projecttitle", placeholder = "Enter your project title" })
+
+        </p>
+        <p>
+            <label for="validationTextarea">Description</label>
+            @Html.TextAreaFor(c => c.ProjectDescription,
+      new { @class = "form-control js-projectdescription", placeholder = "Descript your project" })
+
+        </p>
+        <p>
+            <label for="">Financial Goal</label>
+            <div class="input-group">
+                @Html.TextBoxFor(c => c.ProjectFinancialGoal,
+      new { @class = "form-control js-projectgoal", placeholder = "Enter the financial goal" })
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+
+            </div>
+        </p>
+        <p>
+            <div class="form-control">
+                <div class="col-md-12 ">
+                    <label for="projectcategory">Project Category</label>
+                    @Html.DropDownListFor(c => c.ProjectCategory, new SelectList(Enum.GetValues(typeof(CrowdFundingApplication.Core.Model.ProjectCategory))),
+                                    "Select Category")
                 </div>
             </div>
+        </p>
 
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="validationTextarea">Description</label>
-                    <textarea class="form-control " id="validationTextarea" placeholder="Descript your project" required></textarea>
-                    <div class="invalid-feedback">
-                        Please enter a message in the textarea.
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="exampleInputEmail1">Financial Goal</label>
-                    <div class="input-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your the financial goal">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
-                        </div>
-                        <div class="js-validation-projecttitle validation-error" style="display: none">
-                            Invalid Project Title
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="productcategory">Project Category</label>
-                    @Html.DropDownListFor(c => c.AddOptions.ProjectCategory, new SelectList(Enum.GetValues(typeof(CrowdFundingApplication.Core.Model.ProjectCategory))),
-                                  "Select Category")
-                </div>
-            </div>
-
-            <div class="col-md-5 mb-3">
-                <button type="button" class="btn btn-primary">Add</button>
-            </div>
-        </form>
     </div>
-    <div class="col col-sm-2"></div>
-</div>
 
-
-
-
-<div class="row">
-    <div class="col col-sm-2"></div>
-    <div class="col col-sm-8">
-        <form>
-
-
-            <h2> ADD INCENTIVE</h2>
-
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-
-                    <label for="exampleInputEmail1">Incentive Title</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the reward title">
-                    <div class="js-validation-projecttitle validation-error" style="display: none">
-                        Invalid Reward Title
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="exampleInputEmail1">Incentive Price</label>
-                    <div class="input-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your the financial goal">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
-                        </div>
-                        <div class="js-validation-projecttitle validation-error" style="display: none">
-                            Invalid Project Title
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group col-md-6">
-                    <label for="inputZip">Reward</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-12 mb-3">
-                    <label for="validationTextarea">Description</label>
-                    <textarea class="form-control " id="validationTextarea" placeholder="Descript your inception" required></textarea>
-                    <div class="invalid-feedback">
-                        Please enter a message in the textarea.
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-    <div class="col col-sm-2"></div>
-</div>
-
-
-
-
-<div class="row">
-    <div class="col col-sm-2"></div>
-    <div class="col col-sm-8">
-        <form>
-            <h2> MEDIA</h2>
+    <div class="tab">
+        <h2>Media:</h2>
+        <p>
             <div class="row">
 
                 <select class="custom-select col-md-2 mb-3">
                     <option selected>Open this select menu</option>
                     <option value="1">Photo</option>
                     <option value="2">Video</option>
-                   
+
                 </select>
 
                 <input type="text" class="form-control col-md-10" />
             </div>
-        </form>
+        </p>
+
     </div>
-    <div class="col col-sm-2"></div>
+
+    <div class="tab">
+        <h2> ADD INCENTIVE</h2>
+
+        <p>
+            <label for="exampleInputEmail1">Incentive Title</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the reward title">
+
+        </p>
+
+        <p>
+            <label for="exampleInputEmail1">Incentive Price</label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your the financial goal">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+
+            </div>
+       </p>
+
+         <p>
+            <label for="inputZip">Reward</label>
+            <input type="text" class="form-control" id="inputZip">
+        </p>
+
+        <p>
+            <label for="validationTextarea">Description</label>
+            <textarea class="form-control " id="validationTextarea" placeholder="Descript your inception" required></textarea>
+
+        </p>
+    </div>
+
+
+
+    <div style="overflow:auto;">
+        <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" class="btn btn-primary js-submit-project" id="nextBtn" onclick="nextPrev(1)">Next</button>
+
+        </div>
+    </div>
+
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+       
+    </div>
+
+</form>
+
+<div class="alert alert-danger js-add-project-alert" role="alert"
+     style="display: none">
+
+</div>
+
+<div class="alert alert-success js-add-project-success" role="alert"
+     style="display: none">
+
 </div>
