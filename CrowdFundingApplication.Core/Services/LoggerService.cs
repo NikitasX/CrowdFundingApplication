@@ -8,7 +8,7 @@ namespace CrowdFundingApplication.Core.Services
         public void LogError(string errorCode, string errorText)
         {
             var Log = new LoggerConfiguration()
-              .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+              .WriteTo.File("ErrorLog/log.txt", rollingInterval: RollingInterval.Day)
               .CreateLogger();
             Log.Error(errorCode);
             Log.Information(errorText);
@@ -16,7 +16,7 @@ namespace CrowdFundingApplication.Core.Services
         public void LogInformation(string errorText)
         {
             var Log = new LoggerConfiguration()
-              .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+              .WriteTo.File("ErrorLog/log.txt", rollingInterval: RollingInterval.Day)
               .CreateLogger();
             Log.Information(errorText);
         }
