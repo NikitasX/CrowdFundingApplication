@@ -53,8 +53,9 @@ namespace CrowdFundingApplication.Web.Controllers
         public IActionResult ListPopular()
         {
             return View();
-        }        
+        }
         
+
         [HttpPost("project/addprojectpost/{id}")]
         public async Task<IActionResult> AddProjectPost
             (int id, [FromBody] AddPostOptions options)
