@@ -32,21 +32,23 @@ namespace CrowdFundingApplication.Web.Controllers
         {
             return View();
         }
+
         public IActionResult UpdateUser()
         {
             return View();
         }
+
         public IActionResult SearchUser()
         {
             return View();
         }
+
         public IActionResult List()
         {
             return View();
         }
         
         [HttpPost]
-
         public async Task<IActionResult> AddUser(
 
           [FromBody] Core.Model.Options.User.AddUserOptions options) 
@@ -70,6 +72,7 @@ namespace CrowdFundingApplication.Web.Controllers
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 });
         }
+
         [HttpGet("user/view/{id}")]
         public async Task<IActionResult> UserDashBoard(int id)
         {
@@ -87,22 +90,19 @@ namespace CrowdFundingApplication.Web.Controllers
             } else {
                 return model.User.AsStatusResult();
             }
-        }
-        //[HttpGet("user/getbyid/{userId}/{projectId}")]
-        //public async Task<IActionResult> GetUserById(int projectId, int userId)
-        //{
-        //    var user = await users_.GetUserById(userId);
-        //    var created = context_.Set<Project>().Where(u => u.User == user.Data);
+        }        
+        
+        [HttpGet("user/GetIncentivesByUserId/{userId}")]
+        public async Task<IActionResult> GetIncentivesByUserId(int userId)
+        {
+            var user = await incentive_.GetIncentiveByUserId(userId);
 
-        //    var backed = await incentive_.GetIncentiveByProjectId(projectId);
-
-        //    return Json(backed.Data,
-        //        new JsonSerializerSettings
-        //        {
-        //            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        //        });
-        //}
-      
+            if (user != null) {
+                return Json(user);
+            } else {
+                return null;
+            }
         }
     }
+}
 

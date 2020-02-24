@@ -264,6 +264,7 @@ namespace CrowdFundingApplication.Core.Services
                 .AsQueryable()
                 .Where(b => b.UserId == userId)
                 .Include(u => u.BackedIncentive.Project)
+                .Include(p => p.BackedIncentive.Project.ProjectMedia)
                 .Take(500);
         }
 

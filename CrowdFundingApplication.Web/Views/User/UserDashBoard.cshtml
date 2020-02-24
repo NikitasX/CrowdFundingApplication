@@ -13,6 +13,10 @@
         padding-left: 0 !important;
     }
 
+    .dashboard-elements div {
+
+    }
+
     .table-striped {
         border-radius:15px;
     }
@@ -42,15 +46,15 @@
     }
 
     .list-group-item {
-        border: none;
-        border-bottom: 1px #D7DFEC dashed;
+        border: none !important;
+        border-bottom: 1px #D7DFEC dashed !Important;
         margin-bottom: 0.25rem;
         padding: 0.75rem 1rem 0.75rem 1rem;
     }
 
-        .list-group-item:last-of-type {
-            border-bottom: none !important;
-        }
+    .list-group-item:last-of-type {
+        border-bottom: none !important;
+    }
 
     button[type="submit"] {
         display: block;
@@ -97,7 +101,7 @@
     <div class="dashboard-elements sidebar-left col col-md-3 m-0 p-0">
         
             <div class="col-sm-12 mb-2 p-2">
-                <img class="col-sm-12 m-0 p-0 rounded-circle" src="https://i.pinimg.com/originals/43/96/61/439661dcc0d410d476d6d421b1812540.jpg" alt="" width="204" height="180"/>
+                <img class="col-sm-12 m-0 p-0 rounded-circle" src="/images/default-profile-pic.jpg" />
             </div>
         
         <div class="col-md-12 mb-2 p-2 pt-3">
@@ -105,7 +109,7 @@
 
          <ul class="list-group">
              <li class="list-group-item text-info">
-                 Vat Number: <span class="font-weight-bold text-info">@Model.User.Data.UserVat</span>
+                 VatNumber: <span class="font-weight-bold text-info">@Model.User.Data.UserVat</span>
              </li>
              <li class="list-group-item text-info">
                  First Name: <span class="font-weight-bold text-info">@Model.User.Data.UserFirstName</span>
@@ -117,14 +121,14 @@
                  Email: <span class="font-weight-bold text-info">@Model.User.Data.UserEmail</span>
              </li>
              <li class="list-group-item text-info">
-                 Phone Number: <span class="font-weight-bold text-info">@Model.User.Data.UserPhone</span>
+                 Phone: <span class="font-weight-bold text-info">@Model.User.Data.UserPhone</span>
              </li>
 
          </ul>
         </div>
     </div>
     <div class="col col-md-9 dashboard-elements">
-        <div class="col-md-12 mb-2 p-0" style="min-height:200px;">
+        <div class="col-md-12 m-2 p-0" style="min-height:200px;overflow:auto;">
             <table class="table-striped col-md-12">
                 <thead class="text-center bg-info">
                     <tr>
@@ -169,80 +173,13 @@
             </table>
 
         </div>
-        <div class="col-md-12 mb-2 p-2" style="min-height:200px;">
-            <div class="row js-view-project-list">
+        <div class="col-md-12 m-2 p-2" style="min-height:200px;">
+            <div class="row  js-funded-project-list">
+                <h5 style="border-bottom: 1px #D7DFEC dashed !Important;" 
+                    class="col-md-12 text-info text-center font-weight-bold pb-2">
+                    Backed projects
+                </h5>
             </div>
-       
         </div>
-            @*<div class="col-sm-12 mb-2 p-2" style="min-height:200px;">
-                <form class="postForm">
-                    <div class="form-group m-0">
-                        <input name="postTitle" type="text" class="form-control" placeholder="Add new post title..." />
-                        <textarea name="postDescription" class="form-control mt-2" placeholder="Add new post description..." rows="3"></textarea>
-                        <input type="hidden" id="projectId" name="projectId" value="@Model.UserId" />
-                        <button type="submit" class="btn btn-primary mt-2 js-add-post">Add post</button>
-                    </div>
-                </form>
-            </div>*@
-
-            @*<div class="col-sm-12 mb-2 p-2" style="max-height:600px;">
-                @{
-                    if (projects != null && projects.Count != 0) {
-                        foreach (var project in projects) {
-                            <div class="well m-2">
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h4 class="media-heading font-weight-bold text-info">@project.ProjectTitle</h4>
-                                        <span class="text-muted">
-                                            Posted on:
-                                            <span class="font-italic">@project.ProjectDateCreated.ToString("dd/MM/yyyy")</span>
-                                        </span>
-                                        <p class="text-info mt-1">
-                                            @post.PostExcerpt
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                }
-            </div>*@
-        </div>
-        @*<div class="col col-md-3 dashboard-elements">
-            <div class="col-sm-12 mb-2 p-2" style="min-height:100px;">
-                <div class="col col-sm-12 text-center font-weight-bold text-info">
-                    @progress% funded
-                    <div class="progress" style="height: 35px;">
-                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
-                             aria-valuenow="@progress" aria-valuemin="0" style="width:@progress%;" aria-valuemax="100">
-                        </div>
-                    </div>
-                    <p class="m-0">@Model.ProjectCapitalAcquired / @Model.ProjectFinancialGoal ($)</p>
-                </div>
-            </div>
-            <div class="col-sm-12 mb-2 p-2">
-                @{
-                    if (incentives != null && incentives.Count != 0) {
-                        foreach (var incentive in incentives) {
-                            <div class="well m-2 incentive js-incentive">
-                                <input type="hidden" value="@incentive.IncentiveId" />
-                                <div class="media">
-                                    <div class="media-body">
-                                        <h5 class="media-heading font-weight-bold text-info">@incentive.IncentiveTitle (@incentive.IncentivePrice$)</h5>
-                                        <span class="text-success">
-                                            Reward:
-                                            <span class="font-italic">@incentive.IncentiveReward</span>
-                                        </span>
-
-                                        <p class="text-info mt-1">
-                                            @incentive.IncentiveDescription
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                }
-            </div>
-        </div>*@
     </div>
+</div>

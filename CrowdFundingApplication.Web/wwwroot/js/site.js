@@ -3,6 +3,9 @@
 
 // Write your JavaScript code.
 
+$('.dropdown').on('click', function () {
+    $(this).addClass('show');
+});
 $.ajax({
     url: "/Project/ListProjects",
     type: "GET"
@@ -81,6 +84,59 @@ $.ajax({
         $('.js-view-project-list-popular').append(card);
     })
 }).fail((xhr) => {
+});
+
+$.ajax({
+    url: "/user/GetIncentivesByUserId/1",
+    type: "GET"
+}).done((incentives) => {
+
+    let projectList = [];
+
+    incentives.forEach(incentive => {
+        projectList[incentive.backedIncentive.project.projectId]
+            = incentive.backedIncentive.project;
+    });
+
+    projectList = projectList.filter(Boolean);
+
+    projectList.forEach(project => {
+
+        if (typeof project.projectMedia != undefined
+            && project.projectMedia.length != 0) {
+            var projectImage = project.projectMedia[0].mediaURL;
+        } else {
+            var projectImage = '/images/image-not-found.png';
+        }
+
+        var progress = (parseInt(project.projectCapitalAcquired * 100)
+            / parseInt(project.projectFinancialGoal));
+
+        progress = progress.toFixed();
+
+        let card = `
+            <a href="/project/view/${project.projectId}" class="user-card-link col col-sm-3">
+                 <div class="card user-card">
+                    <img class="card-img-top" src="${projectImage}" alt="Project Image">
+                    <div class="card-body p-0">
+                        <p class="card-title text-center text-info text-decoration-none">${project.projectTitle}</p>
+                        <label class="col col-sm-12 text-center font-weight-bold text-primary">${progress}% funded
+                            <div class="progress mb-1">
+                              <div class="progress-bar progress-bar-striped mb-0" role="progressbar"  
+                                    aria-valuenow="${progress}" aria-valuemin="0" style="width:${progress}%;" aria-valuemax="100">
+                              </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </a>`;
+
+        $('.js-funded-project-list').append(card);
+
+    });
+
+}).fail((xhr) => {
+    alert(xhr.responseText);
 });
 
 $.ajax({

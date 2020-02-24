@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using CrowdFundingApplication.Web.Extensions;
 using CrowdFundingApplication.Core.Model.Options.PostOptions;
+using CrowdFundingApplication.Core.Model.Options.Project;
 
 namespace CrowdFundingApplication.Web.Controllers
 {
@@ -50,11 +51,32 @@ namespace CrowdFundingApplication.Web.Controllers
             return View();
         }            
         
+        public IActionResult Result()
+        {
+            return View();
+        }
+
         public IActionResult ListPopular()
         {
             return View();
         }
-        
+
+        [HttpGet]
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Search
+            (SearchProjectOptions options)
+        {
+            var projectsList = await projects_
+                .SearchProject(options)
+                .ToListAsync();
+
+            return View(projectsList);
+        }
 
         [HttpPost("project/addprojectpost/{id}")]
         public async Task<IActionResult> AddProjectPost
@@ -69,7 +91,7 @@ namespace CrowdFundingApplication.Web.Controllers
         public async Task<IActionResult> AddProjectBacker
             (int projectId,  int incentiveId)
         {
-            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 2);
+            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 1);
 
             return result.AsStatusResult();
         }
