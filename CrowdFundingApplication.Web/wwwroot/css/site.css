@@ -10,6 +10,12 @@ a.navbar-brand {
     margin-left: 15px;
     padding: 0;
 }
+.card-text {
+    height:100px;
+}
+button {
+    cursor:pointer;
+}
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
@@ -69,6 +75,7 @@ body {
 }
 .footer {
   position: absolute;
+  background-color:#fff;
   bottom: 0;
   width: 100%;
   white-space: nowrap;

@@ -33,7 +33,7 @@ namespace CrowdFundingApplication.Tests
 
             var post = await post_.AddPost(project, user, new AddPostOptions()
             {
-                PostTitle = "My post status update",
+                PostTitle = "My third update post",
                 PostExcerpt = "My post status update excerpt"
             });
 
