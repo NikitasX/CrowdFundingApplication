@@ -1,16 +1,19 @@
-﻿@model CrowdFundingApplication.Core.Model.Project
+﻿@using System.Globalization;
+@model CrowdFundingApplication.Core.Model.Project
 
 <style>
     .dashboard-elements:last-of-type {
-        padding-left:0 !important;
+        padding-left: 0 !important;
     }
+
     .dashboard-elements > div {
         background-color: #fff;
         border: 1px #E4E9F2 solid;
         border-radius: 15px;
     }
+
     .sidebar-left img {
-        border-radius:15px;
+        border-radius: 15px;
     }
 
     h5.text-primary, .well {
@@ -23,67 +26,72 @@
         margin-bottom: 0.25rem;
         padding: 0.75rem 1rem 0.75rem 1rem;
     }
-    .list-group-item:last-of-type {
-        border-bottom: none !important;
-    }
+
+        .list-group-item:last-of-type {
+            border-bottom: none !important;
+        }
 
     button[type="submit"] {
-        display:block;
-        margin-left:auto;
+        display: block;
+        margin-left: auto;
     }
+
     .well {
-        position:relative;
+        position: relative;
     }
+
     .text-muted {
-        font-size:14px;
+        font-size: 14px;
     }
+
     .incentive {
-        cursor:pointer;
+        cursor: pointer;
     }
+
     .post-container {
-        overflow:auto;
+        overflow: auto;
     }
 </style>
 
-@{ 
+@{
     var media = Model.ProjectMedia.ToList();
     var posts = Model.ProjectPosts.OrderByDescending(p => p.PostDateCreated).ToList();
     var incentives = Model.ProjectIncentives.ToList();
 
-    var progress = Math.Round((Model.ProjectCapitalAcquired * 100) / 
-        Model.ProjectFinancialGoal, 2);
+    var progress = Math.Round((Model.ProjectCapitalAcquired * 100) /
+    Model.ProjectFinancialGoal, 2).ToString(CultureInfo.InvariantCulture);
 
 }
 
 <div class="row">
     <div class="dashboard-elements sidebar-left col col-md-3 m-0 p-0">
-            @if (media != null && media.Count != 0) {
+        @if (media != null && media.Count != 0) {
             <div class="col-sm-12 mb-2 p-2">
                 <img class="col-sm-12 m-0 p-0" src="@media[0].MediaURL" />
             </div>
-            }
-            <div class="col-sm-12 mb-2 p-2 pt-3">
-                <h5 class="col-sm-12 text-info font-weight-bold pb-2 pl-3 mb-0">@Model.ProjectTitle</h5>
+        }
+        <div class="col-sm-12 mb-2 p-2 pt-3">
+            <h5 class="col-sm-12 text-info font-weight-bold pb-2 pl-3 mb-0">@Model.ProjectTitle</h5>
 
-                <ul class="list-group">
-                    <li class="list-group-item text-info">
-                        Description: @Model.ProjectDescription
-                    </li>
-                    <li class="list-group-item text-info">
-                        Category: <span class="font-weight-bold text-info">@Model.ProjectCategory</span>
-                    </li>
-                    <li class="list-group-item text-info">
-                        Project Goal: <span class="font-weight-bold text-info">@Model.ProjectFinancialGoal$</span>
-                    </li>
-                    <li class="list-group-item text-info">
-                        Expiring:
-                        <span class="font-weight-bold text-info">
-                            @Model.ProjectDateExpiring.ToString("dd/MM/yyyy")
-                        </span>
-                    </li>
-                </ul>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item text-info">
+                    Description: @Model.ProjectDescription
+                </li>
+                <li class="list-group-item text-info">
+                    Category: <span class="font-weight-bold text-info">@Model.ProjectCategory</span>
+                </li>
+                <li class="list-group-item text-info">
+                    Project Goal: <span class="font-weight-bold text-info">@Model.ProjectFinancialGoal$</span>
+                </li>
+                <li class="list-group-item text-info">
+                    Expiring:
+                    <span class="font-weight-bold text-info">
+                        @Model.ProjectDateExpiring.ToString("dd/MM/yyyy")
+                    </span>
+                </li>
+            </ul>
         </div>
+    </div>
     <div class="col col-md-6 dashboard-elements">
         <div class="col-sm-12 mb-2 p-2" style="min-height:200px;">
             <form class="postForm">
@@ -103,7 +111,8 @@
                             <div class="media">
                                 <div class="media-body">
                                     <h4 class="media-heading font-weight-bold text-info">@post.PostTitle</h4>
-                                    <span class="text-muted">Posted on: 
+                                    <span class="text-muted">
+                                        Posted on:
                                         <span class="font-italic">@post.PostDateCreated.ToString("dd/MM/yyyy")</span>
                                     </span>
                                     <p class="text-info mt-1">

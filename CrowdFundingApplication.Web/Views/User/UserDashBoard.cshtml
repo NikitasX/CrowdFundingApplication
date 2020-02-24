@@ -1,4 +1,5 @@
-﻿@model UserDashboardViewModel
+﻿@using System.Globalization;
+@model UserDashboardViewModel
 
 @{ 
     var createdProjects = Model.Context
@@ -10,6 +11,20 @@
 <style>
     .dashboard-elements:last-of-type {
         padding-left: 0 !important;
+    }
+
+    .table-striped {
+        border-radius:15px;
+    }
+    .table-striped thead{
+        color:#fff;
+    }
+
+    .table-title {
+        background-color: #fff !important;
+        font-weight: bold;
+        font-size: 18px;
+        border-bottom: 1px #fff solid;
     }
 
     .dashboard-elements > div {
@@ -109,24 +124,50 @@
         </div>
     </div>
     <div class="col col-md-9 dashboard-elements">
-        <div class="col-md-12 mb-2 p-2" style="min-height:200px;">
+        <div class="col-md-12 mb-2 p-0" style="min-height:200px;">
+            <table class="table-striped col-md-12">
+                <thead class="text-center bg-info">
+                    <tr>
+                        <td class="table-title text-info" colspan="4">Created Projects</td>
+                    </tr>
+                    <tr>
 
-            @{ foreach (var project in createdProjects) {
-                    <div class="row js-view-project-list-user">
-            </div>
-                }
-            }
-           
-            @*<div class="row js-view-project-list">
-        </div>*@
-            @*<form class="postForm">
-            <div class="form-group m-0">
-                <input name="postTitle" type="text" class="form-control" placeholder="Add new post title..." />
-                <textarea name="postDescription" class="form-control mt-2" placeholder="Add new post description..." rows="3"></textarea>
-                <input type="hidden" id="projectId" name="projectId" value="@Model.UserId" />
-                <button type="submit" class="btn btn-primary mt-2 js-add-post">Add post</button>
-            </div>
-        </form>*@
+                        <td>Title</td>
+                        <td>Category</td>
+                        <td>% Funded</td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @{
+                        foreach (var project in createdProjects) {
+                            var progress = Math.Round((project.ProjectCapitalAcquired * 100) /
+                                project.ProjectFinancialGoal, 2).ToString(CultureInfo.InvariantCulture);
+                            <tr>
+                                <td>
+                                    @project.ProjectTitle
+                                </td>
+                                <td>
+                                    @project.ProjectCategory
+                                </td>
+                                <td class="pt-2">
+                                    <label class="col col-sm-12 text-center font-weight-bold text-primary">
+                                        <div class="progress mb-1">
+                                            <div class="progress-bar bg-success progress-bar-striped mb-0" role="progressbar"
+                                                 aria-valuenow="@progress" aria-valuemin="0" style="width:@progress%;" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="~/project/view/@project.ProjectId" class="text-info">View</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
         </div>
         <div class="col-md-12 mb-2 p-2" style="min-height:200px;">
             <div class="row js-view-project-list">
