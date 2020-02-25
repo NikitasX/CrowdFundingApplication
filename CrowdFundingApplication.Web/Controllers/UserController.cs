@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
-using CrowdFundingApplication.Core.Data;
-using CrowdFundingApplication.Core.Model;
-using CrowdFundingApplication.Core.Services.Interfaces;
-using CrowdFundingApplication.Web.Extensions;
-using CrowdFundingApplication.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using CrowdFundingApplication.Core.Data;
+using CrowdFundingApplication.Core.Model;
+using CrowdFundingApplication.Web.Models;
+using CrowdFundingApplication.Web.Extensions;
+using CrowdFundingApplication.Core.Services.Interfaces;
 
 namespace CrowdFundingApplication.Web.Controllers
 {
@@ -28,6 +26,7 @@ namespace CrowdFundingApplication.Web.Controllers
             users_ = usr;
             incentive_ = inc;
         }
+
         public IActionResult AddUser()
         {
             return View();

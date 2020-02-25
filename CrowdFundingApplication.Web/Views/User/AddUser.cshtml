@@ -5,7 +5,6 @@
     <div class="col col-sm-8">
         <form>
             <h2> ADD USER</h2>
-
             <div class="form-row">
                 <div class="col-md-12 mb-3">
                     <label for="@Html.IdFor(u =>u.AddOptions.UserVat )">Vat number</label>
@@ -23,7 +22,6 @@
                         Invalid first name
                     </div>
                 </div>
-
                 <div class="form-group col-md-6">
                     <label for="@Html.IdFor(u =>u.AddOptions.UserLastName )">Last name</label>
                     @Html.TextBoxFor(u => u.AddOptions.UserLastName, new { @class = "form-control js-userlastname", placeholder = "Enter your last name" })
@@ -32,7 +30,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="@Html.IdFor(u =>u.AddOptions.UserPhone )">Phone number</label>
@@ -41,7 +38,6 @@
                         Invalid Vat number
                     </div>
                 </div>
-
                 <div class="form-group col-md-6">
                     <label for="@Html.IdFor(u =>u.AddOptions.UserEmail )">Email</label>
                     @Html.TextBoxFor(u => u.AddOptions.UserEmail, new { @class = "form-control js-useremail", placeholder = "Enter your email" })
@@ -50,16 +46,12 @@
                     </div>
                 </div>
             </div>
-
-
-
             <button type="submit" class="btn btn-primary js-submit-user">Submit</button>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Expires</label>
                 <input type="text" class="form-control js-datepicker" />
             </div>
         </form>
-
     </div>
     <div class="col col-sm-2"></div>
 </div>

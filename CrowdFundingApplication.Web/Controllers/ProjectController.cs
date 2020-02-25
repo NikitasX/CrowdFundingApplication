@@ -1,15 +1,14 @@
 ﻿using System.Linq;
-using Newtonsoft;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
-using CrowdFundingApplication.Core.Data;
-using CrowdFundingApplication.Core.Model;
-using CrowdFundingApplication.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using CrowdFundingApplication.Core.Data;
+using CrowdFundingApplication.Core.Model;
 using CrowdFundingApplication.Web.Extensions;
-using CrowdFundingApplication.Core.Model.Options.PostOptions;
+using CrowdFundingApplication.Core.Services.Interfaces;
 using CrowdFundingApplication.Core.Model.Options.Project;
+using CrowdFundingApplication.Core.Model.Options.PostOptions;
 
 namespace CrowdFundingApplication.Web.Controllers
 {

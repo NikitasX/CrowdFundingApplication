@@ -21,18 +21,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="Add">Add Project</a>
-                        </li>      
+                        </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="List">All Projects</a>
-                        </li>                                
-                        
+                        </li>
                         <li>
                             <a class="nav-link text-dark" asp-area="" asp-controller="Project" asp-action="ListPopular">Trending Projects</a>
                         </li>
-
                         <li class="nav-item" style="margin-left:auto;">
                             <a class="nav-link dashboard-link text-dark" asp-controller="User" asp-route-id="1" asp-action="UserDashboard">
                                 User Dashboard <img src="/images/default-profile-pic.jpg" class="menu-image" />
@@ -48,7 +45,6 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Crowdbox - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

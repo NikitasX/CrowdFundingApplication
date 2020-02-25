@@ -12,9 +12,11 @@
     .dashboard-elements:last-of-type {
         padding-left: 0 !important;
     }
+
     body {
         min-height:800px;
     }
+
     .dashboard-elements div {
 
     }
@@ -22,6 +24,7 @@
     .table-striped {
         border-radius:15px;
     }
+
     .table-striped thead{
         color:#fff;
     }
@@ -101,32 +104,27 @@
 
 <div class="row">
     <div class="dashboard-elements sidebar-left col col-md-3 m-0 p-0">
-        
-            <div class="col-sm-12 mb-2 p-2">
-                <img class="col-sm-12 m-0 p-0 rounded-circle" src="/images/default-profile-pic.jpg" />
-            </div>
-        
-        <div class="col-md-12 mb-2 p-2 pt-3">
-        
-
-         <ul class="list-group">
-             <li class="list-group-item text-info">
-                 VatNumber: <span class="font-weight-bold text-info">@Model.User.Data.UserVat</span>
-             </li>
-             <li class="list-group-item text-info">
-                 First Name: <span class="font-weight-bold text-info">@Model.User.Data.UserFirstName</span>
-             </li>
-             <li class="list-group-item text-info">
-                 Last Name: <span class="font-weight-bold text-info">@Model.User.Data.UserLastName</span>
-             </li>
-             <li class="list-group-item text-info">
-                 Email: <span class="font-weight-bold text-info">@Model.User.Data.UserEmail</span>
-             </li>
-             <li class="list-group-item text-info">
-                 Phone: <span class="font-weight-bold text-info">@Model.User.Data.UserPhone</span>
-             </li>
-
-         </ul>
+        <div class="col-sm-12 mb-2 p-2">
+            <img class="col-sm-12 m-0 p-0 rounded-circle" src="/images/default-profile-pic.jpg" />
+        </div>
+        <div class="col-md-12 mb-2 p-2 pt-3">      
+            <ul class="list-group">
+                <li class="list-group-item text-info">
+                    VatNumber: <span class="font-weight-bold text-info">@Model.User.Data.UserVat</span>
+                </li>
+                <li class="list-group-item text-info">
+                    First Name: <span class="font-weight-bold text-info">@Model.User.Data.UserFirstName</span>
+                </li>
+                <li class="list-group-item text-info">
+                    Last Name: <span class="font-weight-bold text-info">@Model.User.Data.UserLastName</span>
+                </li>
+                <li class="list-group-item text-info">
+                    Email: <span class="font-weight-bold text-info">@Model.User.Data.UserEmail</span>
+                </li>
+                <li class="list-group-item text-info">
+                    Phone: <span class="font-weight-bold text-info">@Model.User.Data.UserPhone</span>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col col-md-9 dashboard-elements">
@@ -137,7 +135,6 @@
                         <td class="table-title text-info" colspan="4">Created Projects</td>
                     </tr>
                     <tr>
-
                         <td>Title</td>
                         <td>Category</td>
                         <td>% Funded</td>
@@ -173,7 +170,6 @@
                     }
                 </tbody>
             </table>
-
         </div>
         <div class="col-md-12 m-2 p-2" style="min-height:200px;">
             <div class="row  js-funded-project-list">

@@ -27,9 +27,9 @@
         padding: 0.75rem 1rem 0.75rem 1rem;
     }
 
-        .list-group-item:last-of-type {
-            border-bottom: none !important;
-        }
+    .list-group-item:last-of-type {
+        border-bottom: none !important;
+    }
 
     button[type="submit"] {
         display: block;
@@ -60,7 +60,6 @@
 
     var progress = Math.Round((Model.ProjectCapitalAcquired * 100) /
     Model.ProjectFinancialGoal, 2).ToString(CultureInfo.InvariantCulture);
-
 }
 
 <div class="row">
@@ -72,7 +71,6 @@
         }
         <div class="col-sm-12 mb-2 p-2 pt-3">
             <h5 class="col-sm-12 text-info font-weight-bold pb-2 pl-3 mb-0">@Model.ProjectTitle</h5>
-
             <ul class="list-group">
                 <li class="list-group-item text-info">
                     Description: @Model.ProjectDescription
@@ -127,8 +125,7 @@
         </div>
     </div>
     <div class="col col-md-3 dashboard-elements">
-        <div class="col-sm-12 mb-2 p-2" style="        min-height: 100px;
-">
+        <div class="col-sm-12 mb-2 p-2" style=" min-height: 100px;">
             <div class="col col-sm-12 text-center font-weight-bold text-info">
                 @progress% funded
                 <div class="progress" style="height: 35px;">
