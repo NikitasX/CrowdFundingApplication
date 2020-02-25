@@ -91,7 +91,7 @@ namespace CrowdFundingApplication.Web.Controllers
         public async Task<IActionResult> AddProjectBacker
             (int projectId,  int incentiveId)
         {
-            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 1);
+            var result = await incentives_.AddIncentiveBacker(projectId, incentiveId, 2);
 
             return result.AsStatusResult();
         }
