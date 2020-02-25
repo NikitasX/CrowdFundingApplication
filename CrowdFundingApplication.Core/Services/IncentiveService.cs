@@ -362,11 +362,11 @@ namespace CrowdFundingApplication.Core.Services
                 return backer.ToResult<Incentive>();
             }
 
-            if(project.Data.User == backer.Data) {
-                return new ApiResult<Incentive>(
-                    StatusCode.Conflict,
-                    "Creator and backer cannot be the same person. Backer not added");
-            }
+            //if(project.Data.User == backer.Data) {
+            //    return new ApiResult<Incentive>(
+            //        StatusCode.Conflict,
+            //        "Creator and backer cannot be the same person. Backer not added");
+            //}
 
             var backedIncentive = new BackedIncentives()
             {
