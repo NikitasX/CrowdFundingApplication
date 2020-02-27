@@ -109,7 +109,8 @@ namespace CrowdFundingApplication.Tests
                 UserLastName = "Xanthos",
                 UserPhone = "+306945082345",
                 UserVat = "123456789",
-                UserEmail = $"updated{num}@gmail.com"
+                //UserEmail = $"updated{num}@gmail.com"
+                UserEmail = "nikitasxts@gmail.com"
             });
 
             Assert.Equal(Core.StatusCode.Ok, updateUser.ErrorCode);

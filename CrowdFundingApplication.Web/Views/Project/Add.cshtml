@@ -1,20 +1,26 @@
 ﻿@model CrowdFundingApplication.Core.Model.Options.ProjectOptions.AddProjectOptions
 
     <div class="row">
+
         <div class="col col-md-2"></div>
+
         <div class="tab col-md-8">
             <form data-form="0" class="js-add-project">
+
                 <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
                     Create Project:
                 </h4>
+
                 <div class="form-group">
                     @Html.TextBoxFor(c => c.ProjectTitle,
                     new { @class = "form-control js-projecttitle", placeholder = "Project title..." })
                 </div>
+
                 <div class="form-group">
                     @Html.TextAreaFor(c => c.ProjectDescription,
                     new { @class = "form-control js-projectdescription", placeholder = "Project description..." })
                 </div>
+
                 <div class="form-group">
                     <div class="input-group-prepend">
 
@@ -23,6 +29,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <select name="ProjectCategory" class="form-control">
                         @{
@@ -36,20 +43,25 @@
                         }
                     </select>
                 </div>
+
                 <div class="form-group">
                     <input type="date" class="form-control" name="ProjectDateExpiring" />
                 </div>
+
                 <div class="col col-md-12 d-flex justify-content-end pr-0">
                     <button type="button" class="btn btn-primary js-submit-project">Next</button>
                 </div>
+
             </form>
         </div>
 
         <div class="tab col-md-8">
             <form data-form="1" class="js-add-media">
+
                 <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
                     Add Media:
                 </h4>
+
                 <div class="row">
                     <select name="MediaType" class="form-control col-md-2">
                         @{
@@ -64,11 +76,14 @@
                     </select>
                     <input name="MediaURL" type="text" class="form-control col-md-10" placeholder="Media URL..." />
                 </div>
+
                 <input type="hidden" class="js-project-id" />
+
                 <div class="col col-md-12 d-flex justify-content-end pr-0">
                     <button type="button" class="btn btn-primary js-submit-media continue mr-2">Add and continue</button>
                     <button type="button" class="btn btn-primary js-submit-media">Next</button>
                 </div>
+
             </form>
         </div>
 
@@ -77,21 +92,26 @@
                 <h4 class="col-md-12 text-info text-center font-weight-bold p-2">
                     Add Incentive:
                 </h4>
+
                 <div class="form-group">
                     <input type="text" class="form-control" name="IncentiveTitle" placeholder="Title...">
                 </div>
+
                 <div class="form-group d-flex justify-content-start col-md-12 p-0">
                     <input type="number" class="form-control col-md-3 mr-3" name="IncentivePrice" placeholder="Price in $">
 
                     <input type="text" name="IncentiveReward" class="form-control" placeholder="Reward...">
                 </div>
+
                 <div>
                     <textarea class="form-control" name="IncentiveDescription" placeholder="Description..."></textarea>
                 </div>
+
                 <div class="col col-md-12 d-flex justify-content-end mt-2 pr-0">
                     <button type="button" class="btn btn-primary js-submit-incentive continue mr-2">Add and continue</button>
                     <button type="button" class="btn btn-primary js-submit-incentive">Submit</button>
                 </div>
+
             </form>
         </div>
 

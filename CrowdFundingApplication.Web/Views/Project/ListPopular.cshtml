@@ -1,9 +1,13 @@
 ﻿<div class="col-md-12 p-4 index-element mb-3">
+
     <h5 class="col-md-12 text-info text-center font-weight-bold p-2">
         Search Projects
     </h5>
-    <form class="col-md-12" method="post" action="@Url.Action("Search", "project")">
+
+    <form class="col-md-12" method="post" 
+          action="@Url.Action("Search", "project")">
         <div class="form-group p-0 d-flex">
+
             <select name="ProjectCategory" class="form-control col col-md-4">
                 @{
                     var categories = Enum.GetValues(
@@ -15,16 +19,24 @@
                     }
                 }
             </select>
-            <input type="text" name="ProjectTitle" class="form-control col col-md-8" placeholder="Project title..." />
+
+            <input type="text" name="ProjectTitle" class="form-control col col-md-8" 
+                   placeholder="Project title..." />
+
         </div>
-        <input type="submit" value="Search Project" class="btn btn-primary js-search-project col-md-3"
+
+        <input type="submit" value="Search Project" 
+               class="btn btn-primary js-search-project col-md-3"
                style="margin-left:auto;" />
     </form>
 </div>    
+
 <div class="col-md-12 p-4 index-element">
+
     <h5 class="col-md-12 text-info text-center font-weight-bold p-2">
         Trending projects
     </h5>
-    <div class="row js-view-project-list-popular d-flex justify-content-around">
-    </div>
+
+    <div class="row js-view-project-list-popular d-flex justify-content-around"></div>
+
 </div>

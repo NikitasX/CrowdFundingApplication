@@ -6,8 +6,10 @@
     <h5 class="col-md-12 text-info text-center font-weight-bold p-2">
         Search Projects
     </h5>
+
     <form class="col-md-12" method="post" action="@Url.Action("Search", "project")">
         <div class="form-group p-0 d-flex">
+
             <select name="ProjectCategory" class="form-control col col-md-4">
                 @{
                     var categories = Enum.GetValues(
@@ -19,9 +21,13 @@
                     }
                 }
             </select>
-            <input type="text" name="ProjectTitle" class="form-control col col-md-8" placeholder="Project title..." />
+
+            <input type="text" name="ProjectTitle" 
+                   class="form-control col col-md-8" placeholder="Project title..." />
         </div>
-        <input type="submit" value="Search Project" class="btn btn-primary js-search-project col-md-3"
+
+        <input type="submit" value="Search Project" 
+               class="btn btn-primary js-search-project col-md-3"
                style="margin-left:auto;" />
     </form>
 </div>
@@ -41,21 +47,36 @@
 
                 var progress = Math.Round((project.ProjectCapitalAcquired * 100) /
                     project.ProjectFinancialGoal, 2).ToString(CultureInfo.InvariantCulture);
+
                 <div class="col col-sm-3 card">
+
                     <img class="card-img-top" src="@media" alt="Project Image">
+
                     <div class="card-body">
-                        <h5 class="card-title">@project.ProjectTitle</h5>
-                        <p class="card-text">@project.ProjectDescription</p>
+                        <h5 class="card-title">
+                            @project.ProjectTitle
+                        </h5>
+
+                        <p class="card-text">
+                            @project.ProjectDescription
+                        </p>
+
                         <label class="col col-sm-12 text-center font-weight-bold text-primary">
                             @progress% funded
                             <div class="progress mb-1">
-                                <div class="progress-bar progress-bar-striped" role="progressbar"
-                                     aria-valuenow="@progress" aria-valuemin="0" style="width:@progress%;" aria-valuemax="100">
+
+                                <div class="progress-bar progress-bar-striped" 
+                                     role="progressbar"
+                                     aria-valuenow="@progress" aria-valuemin="0" 
+                                     style="width:@progress%;" aria-valuemax="100">
                                 </div>
+
                             </div>
                             @project.ProjectCapitalAcquired / @project.ProjectFinancialGoal ($)
                         </label>
+
                         <a href="/project/view/@project.ProjectId" class="col col-sm-12 btn btn-primary">View Project</a>
+
                     </div>
                 </div>
             }

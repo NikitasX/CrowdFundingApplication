@@ -107,33 +107,41 @@
         <div class="col-sm-12 mb-2 p-2">
             <img class="col-sm-12 m-0 p-0 rounded-circle" src="/images/default-profile-pic.jpg" />
         </div>
+
         <div class="col-md-12 mb-2 p-2 pt-3">      
             <ul class="list-group">
                 <li class="list-group-item text-info">
                     VatNumber: <span class="font-weight-bold text-info">@Model.User.Data.UserVat</span>
                 </li>
+
                 <li class="list-group-item text-info">
                     First Name: <span class="font-weight-bold text-info">@Model.User.Data.UserFirstName</span>
                 </li>
+
                 <li class="list-group-item text-info">
                     Last Name: <span class="font-weight-bold text-info">@Model.User.Data.UserLastName</span>
                 </li>
+
                 <li class="list-group-item text-info">
                     Email: <span class="font-weight-bold text-info">@Model.User.Data.UserEmail</span>
                 </li>
+
                 <li class="list-group-item text-info">
                     Phone: <span class="font-weight-bold text-info">@Model.User.Data.UserPhone</span>
                 </li>
             </ul>
         </div>
     </div>
+
     <div class="col col-md-9 dashboard-elements">
         <div class="col-md-12 m-2 p-0" style="min-height:200px;overflow:auto;">
+
             <table class="table-striped col-md-12">
                 <thead class="text-center bg-info">
                     <tr>
                         <td class="table-title text-info" colspan="4">Created Projects</td>
                     </tr>
+
                     <tr>
                         <td>Title</td>
                         <td>Category</td>
@@ -141,6 +149,7 @@
                         <td>Actions</td>
                     </tr>
                 </thead>
+
                 <tbody class="text-center">
                     @{
                         foreach (var project in createdProjects) {
@@ -150,9 +159,11 @@
                                 <td>
                                     @project.ProjectTitle
                                 </td>
+
                                 <td>
                                     @project.ProjectCategory
                                 </td>
+
                                 <td class="pt-2">
                                     <label class="col col-sm-12 text-center font-weight-bold text-primary">
                                         <div class="progress mb-1">
@@ -162,6 +173,7 @@
                                         </div>
                                     </label>
                                 </td>
+
                                 <td>
                                     <a href="~/project/view/@project.ProjectId" class="text-info">View</a>
                                 </td>
@@ -171,6 +183,7 @@
                 </tbody>
             </table>
         </div>
+
         <div class="col-md-12 m-2 p-2" style="min-height:200px;">
             <div class="row  js-funded-project-list">
                 <h5 style="border-bottom: 1px #D7DFEC dashed !Important;" 
